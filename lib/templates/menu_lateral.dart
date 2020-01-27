@@ -2,7 +2,7 @@ import 'package:app_movij/C/colors.dart';
 import 'package:app_movij/templates/copy.dart';
 import 'package:flutter/material.dart';
 
-Drawer getDrawer() {
+Drawer getDrawer(BuildContext context) {
   return Drawer(
     child: ListView(
       padding: EdgeInsets.zero,
@@ -39,7 +39,9 @@ Drawer getDrawer() {
         ListTile(
           leading: Icon(Icons.home),
           title: Text('Inicio'),
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).pushReplacementNamed('/');
+          },
         ),
 
         Divider(),
@@ -47,7 +49,9 @@ Drawer getDrawer() {
         ListTile(
           leading: Icon(Icons.person),
           title: Text('Seleccionar perfil'),
-          onTap: (){},
+          onTap: (){
+            Navigator.of(context).pushReplacementNamed('seleccionarPerfil');
+          },
         ),
 
         Divider(),
@@ -55,7 +59,9 @@ Drawer getDrawer() {
         ListTile(
           leading: Icon(Icons.gamepad),
           title: Text('Juegos'),
-          onTap: (){},
+          onTap: (){
+            Navigator.of(context).pushReplacementNamed('menuJuego');
+          },
         ),
 
         Divider(),

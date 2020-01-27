@@ -19,7 +19,7 @@ class _MenuJuegoPageState extends State<MenuJuegoPage> {
       appBar: AppBar(
         title: Text('Juegos'),
       ),
-      drawer: getDrawer(),
+      drawer: getDrawer(context),
       body: _loadPage(_actualPage),
       bottomNavigationBar: _bottomBar(),
     );

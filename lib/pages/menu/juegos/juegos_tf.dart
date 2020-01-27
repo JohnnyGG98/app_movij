@@ -13,15 +13,17 @@ class JuegosTFPage extends StatelessWidget {
           ListView(
             padding: EdgeInsets.symmetric(vertical: 40, horizontal: 30),
             children: <Widget>[
-              getBtnJuego('Encuentra'),
+              getBtnJuego('Encuentra', (){
+                Navigator.of(context).pushNamed('juego/tf/encuentra');
+              }),
               SizedBox(height: 35,),
-              getBtnJuego('Sigue'),
+              getBtnJuego('Sigue', () {}),
               SizedBox(height: 35,),
-              getBtnJuego('Camina'),
+              getBtnJuego('Camina', () {}),
               SizedBox(height: 35,),
-              getBtnJuego('Ordena'),
+              getBtnJuego('Ordena', () {}),
               SizedBox(height: 35,),
-              getBtnJuego('Otros'),
+              getBtnJuego('Otros', () {}),
             ],
           )
         ],

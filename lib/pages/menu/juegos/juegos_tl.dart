@@ -14,15 +14,15 @@ class JuegosTLPage extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 40, horizontal: 30),
             children: <Widget>[
               
-              getBtnJuego('Tiempo'),
+              getBtnJuego('Tiempo', () {}),
               SizedBox(height: 35,),
-              getBtnJuego('Luz'),
+              getBtnJuego('Luz', () {}),
               SizedBox(height: 35,),
-              getBtnJuego('Hora'),
+              getBtnJuego('Hora', (){}),
               SizedBox(height: 35,),
-              getBtnJuego('Cantidad'),
+              getBtnJuego('Cantidad', () {}),
               SizedBox(height: 35,),
-              getBtnJuego('Pictogramas'),
+              getBtnJuego('Pictogramas', (){}),
             ],
           )
         ],
