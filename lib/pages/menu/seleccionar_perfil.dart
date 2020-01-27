@@ -1,3 +1,6 @@
+
+import 'package:app_movij/templates/fondo.dart';
+import 'package:app_movij/templates/menu_lateral.dart';
 import 'package:flutter/material.dart';
 
 class SeleccionarPerfilPage extends StatelessWidget {
@@ -7,9 +10,13 @@ class SeleccionarPerfilPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Seleccionar Perfil'),
       ),
-      body: Container(
-        child: _getPerfiles(),
+      body: CustomPaint(
+        painter: PerfilPainter(),
+        child: Container(
+          child: _getPerfiles(),
+        ),
       ),
+      drawer: getDrawer(),
     );
   }
 
@@ -24,7 +31,9 @@ class SeleccionarPerfilPage extends StatelessWidget {
       itemCount: perfiles.length,
       itemBuilder: (BuildContext context, int i) {
         return GestureDetector(
-          onTap: () {print('HOLAASSS');},
+          onTap: () {
+            Navigator.of(context).pushNamed('menuJuego');
+          },
           child: Container(
             child: Column(
               children: <Widget>[
@@ -35,19 +44,14 @@ class SeleccionarPerfilPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(100),
                     border: Border.all(color: Colors.black38),
                     image: DecorationImage(
-                      image: AssetImage('assets/app/ipca.png'),
+                      image: AssetImage('assets/app/pocoyo_bg.jpg'),
                       fit: BoxFit.contain
                     )
-                  ),/*
-                  child: Image(
-                    image: AssetImage('assets/app/ipca.png'),
-                    fit: BoxFit.contain,
-                  ),*/
+                  ),
                 ),
                 SizedBox(height: 5,),
                 Text(perfiles[i]),
                 Divider()
-                
               ],
             ),
           ),
@@ -65,5 +69,13 @@ List perfiles = [
   'EDISSON',
   'ALEXANDER',
   'DENNIS',
-  'EVELIN'
+  'EVELIN',
+  'CARLOS',
+  'JOHNNY',
+  'GUSTAVO',
+  'EDISSON',
+  'ALEXANDER',
+  'DENNIS',
+  'EVELIN',
+  'CARLOS'
 ];

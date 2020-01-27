@@ -1,4 +1,5 @@
 import 'package:app_movij/pages/home.dart';
+import 'package:app_movij/pages/menu/juegos/menu_juego.dart';
 import 'package:app_movij/pages/menu/seleccionar_perfil.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (BuildContext ct) => HomePage(),
         'seleccionarPerfil': (BuildContext ct) => SeleccionarPerfilPage(),
+        'menuJuego': (BuildContext ct) => MenuJuegoPage(),
       },
       theme: ThemeData(
         primaryColor: Color.fromRGBO(52, 73, 94, 1.0),
