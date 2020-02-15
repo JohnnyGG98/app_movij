@@ -1,4 +1,5 @@
 import 'package:app_movij/C/colors.dart';
+import 'package:app_movij/templates/btn_juego.dart';
 import 'package:app_movij/templates/copy.dart';
 import 'package:app_movij/templates/fondo.dart';
 import 'package:app_movij/utils/pantalla.dart';
@@ -63,20 +64,9 @@ class HomePage extends StatelessWidget  with PortraitModeMixin {
   }
 
   Widget _playButton(BuildContext context) {
-    return FlatButton(
-      color: ACCENT_COLOR,
-      onPressed: (){
-        Navigator.of(context).pushNamed('seleccionarPerfil');
-      },
-      child: Text('JUGAR', 
-        style: TextStyle(
-          fontSize: 45,
-          color: Colors.white,
-          letterSpacing: 4.0
-        ),
-      ),
-      padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 13.0),
-    );
+    return getPlayButtom((){
+      Navigator.of(context).pushNamed('seleccionarPerfil');
+    });
   }
 
 }
