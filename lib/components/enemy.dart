@@ -14,7 +14,7 @@ class Enemy {
   bool isDead = false; 
 
   Enemy(this.gc, double x, double y){
-    healt = 3;
+    healt = 1;
     damage = 1;
     speed = gc.tileSize * 2;
     enemyRect = Rect.fromLTWH(

@@ -1,4 +1,3 @@
-import 'package:app_movij/C/colors.dart';
 import 'package:app_movij/templates/btn_juego.dart';
 import 'package:app_movij/templates/copy.dart';
 import 'package:app_movij/templates/fondo.dart';

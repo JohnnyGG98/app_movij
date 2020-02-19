@@ -46,6 +46,12 @@ class _PersonaPreviewState extends State<PersonaPreview> with TickerProviderStat
       end: 360,
     );
   }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
 }
 
 

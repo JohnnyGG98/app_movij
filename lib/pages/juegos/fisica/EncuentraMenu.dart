@@ -1,7 +1,9 @@
 import 'package:app_movij/animated/personaje_preview.dart';
+import 'package:app_movij/pages/juegos/fisica/encuentra/encuentra_main.dart';
 import 'package:app_movij/templates/btn_juego.dart';
 import 'package:app_movij/templates/menu_lateral.dart';
 import 'package:app_movij/templates/widgets/widget_informacion_juego.dart';
+import 'package:app_movij/utils/flame_const.dart';
 import 'package:flutter/material.dart';
 
 class MenuEncuentraPage extends StatelessWidget {
@@ -17,13 +19,8 @@ class MenuEncuentraPage extends StatelessWidget {
         // mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-
           InformacionJuego('Se debe buscar unicamente al personaje que se seleccione, el número de veces que se indica.\n\nSeleccionar el personaje:'),
-
-          // Text('Selecciona el persona', textAlign: TextAlign.justify,),
-
           _PersonasEncuentra() 
-          
         ],
       )
     );
@@ -41,6 +38,7 @@ class _PersonasEncuentra extends StatefulWidget {
 class __PersonasEncuentraState extends State<_PersonasEncuentra> {
 
   String _imgPath = '';
+  String _nombrePersonaje = '';
 
   @override
   Widget build(BuildContext context) {
@@ -51,19 +49,26 @@ class __PersonasEncuentraState extends State<_PersonasEncuentra> {
           child: _menu(),
         ),
 
-        SizedBox(height: 10,),
+        SizedBox(height: 20,),
         
         _imgPath != '' ? 
-          getPlayButtom((){}) : 
+          getPlayButtom((){
+            EncuentraMain em = new EncuentraMain(context, _nombrePersonaje);
+            FlameConst.TAPPER.onTapDown = em.onTapDowm;
+
+            // Navigator.of(context).push(MaterialPageRoute(
+            //   builder: (context) => // Iniciamos la clase
+            // ));
+
+            Navigator.pushNamed(context, 'jugar', arguments: em.widget);
+          }) : 
           Container(),
 
-        SizedBox(height: 30,),
+        SizedBox(height: 40,),
 
         _imgPath != '' ? 
           PersonaPreview(_imgPath) :
           Container(),
-
-        
 
       ],
     );
@@ -77,18 +82,21 @@ class __PersonasEncuentraState extends State<_PersonasEncuentra> {
 
         getBtnPersonaje('assets/games/tf/Nave.png', (){
           setState(() {
+            _nombrePersonaje = 'Nave.png';
             _imgPath = 'assets/games/tf/Nave.png';
           });
         }),
         SizedBox(width: 40,),
         getBtnPersonaje('assets/games/tf/Barco.png', (){
           setState(() {
+            _nombrePersonaje = 'Barco.png';
             _imgPath = 'assets/games/tf/Barco.png';
           });
         }),
         SizedBox(width: 40,),
         getBtnPersonaje('assets/games/tf/SoccerBall.png', (){
           setState(() {
+            _nombrePersonaje = 'balon.png';
             _imgPath = 'assets/games/tf/SoccerBall.png';
           });
         }),
