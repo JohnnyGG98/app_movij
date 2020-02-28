@@ -46,7 +46,9 @@ flutter:
   assets:
     - assets/app/
     - assets/images/
+    - assets/images/emoticon/
     - assets/games/tf/
+    - assets/games/tf/clasifica/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -1,4 +1,5 @@
 import 'package:app_movij/pages/home.dart';
+import 'package:app_movij/pages/juegos/fisica/ClasificaMenu.dart';
 import 'package:app_movij/pages/juegos/fisica/EncuentraMenu.dart';
 import 'package:app_movij/pages/menu/juegos/menu_juego.dart';
 import 'package:app_movij/pages/menu/seleccionar_perfil.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
 
         // Juegos  
         'juego/tf/encuentra': (BuildContext ct) => MenuEncuentraPage(),
+        'juego/tf/clasifica': (BuildContext ct) => MenuClasificaPage(),
 
         // Juego Page 
         'jugar': (BuildContext ct) => AddGame()
