@@ -18,7 +18,7 @@ class MenuClasificaPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          InformacionJuego('Se debe clasificar los objetos, con el color o su categoria correspondiente.\n\nSeleccionar la categoria:'),
+          InformacionJuego('Se debe clasificar los objetos, con el color o su categoría correspondiente.\n\nSeleccionar categoría:'),
           _CategoriaClasifica()
         ],
       ),

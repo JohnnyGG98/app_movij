@@ -19,7 +19,7 @@ class MenuEncuentraPage extends StatelessWidget {
         // mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          InformacionJuego('Se debe buscar unicamente al personaje que se seleccione, el número de veces que se indica.\n\nSeleccionar el personaje:'),
+          InformacionJuego('Se debe buscar únicamente al personaje que se seleccione, el número de veces que se indica.\n\nSeleccionar personaje:'),
           _PersonasEncuentra() 
         ],
       )
