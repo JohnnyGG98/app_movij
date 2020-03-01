@@ -64,8 +64,15 @@ class PersonajeEncuentra {
     if (!encontrado && paraEncontrar) {
       encontrado = true;
       em.smileSprite.mostrarSprite();
+      em.puntuacion++;
     } else {
       em.sadSprite.mostrarSprite();
+      em.puntuacion -= 2;
+      if (em.puntuacion < 0) {
+        em.puntuacion = 0;
+      } 
+      
+      
     }
   }
 

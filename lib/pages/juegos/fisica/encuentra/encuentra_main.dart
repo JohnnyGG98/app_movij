@@ -110,8 +110,9 @@ class EncuentraMain extends Game  {
         p.render(canvas);
       });
       txtInfo.render(canvas);
-      sadSprite.render(canvas);
-      smileSprite.render(canvas);
+
+      // sadSprite.render(canvas);
+      // smileSprite.render(canvas);
     }
 
     if (estado == _EstadoJuego.menu) {
@@ -127,13 +128,13 @@ class EncuentraMain extends Game  {
         p.update(t);
       });
       txtInfo.update(t);
-      if (sadSprite.mostrar) {
-        sadSprite.update(t);
-      }
+      // if (sadSprite.mostrar) {
+      //   sadSprite.update(t);
+      // }
 
-      if (smileSprite.mostrar) {
-        smileSprite.update(t);
-      }
+      // if (smileSprite.mostrar) {
+      //   smileSprite.update(t);
+      // }
       spawnPersonajes.update(t);
     }
   }
@@ -148,7 +149,6 @@ class EncuentraMain extends Game  {
       personajes.forEach((p) {
         if (p.personaje.contains(td.globalPosition)) {
           p.onTapDowm();
-          puntuacion++;
         }
       });
     }
