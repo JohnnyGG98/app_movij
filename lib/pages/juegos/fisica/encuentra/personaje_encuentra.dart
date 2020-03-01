@@ -53,9 +53,9 @@ class PersonajeEncuentra {
           posToTraslate = _getRandomOffset();
         }
 
-        // if (paraEncontrar && _tiempoEspera > 6) {
-        //   posToTraslate = _getRandomOffset();
-        // }
+        if (paraEncontrar && _tiempoEspera > 10) {
+          posToTraslate = _getRandomOffset();
+        }
       }
     }
   }
@@ -71,8 +71,6 @@ class PersonajeEncuentra {
       if (em.puntuacion < 0) {
         em.puntuacion = 0;
       } 
-      
-      
     }
   }
 

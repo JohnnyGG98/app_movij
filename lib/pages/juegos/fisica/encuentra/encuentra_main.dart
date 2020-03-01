@@ -111,8 +111,8 @@ class EncuentraMain extends Game  {
       });
       txtInfo.render(canvas);
 
-      // sadSprite.render(canvas);
-      // smileSprite.render(canvas);
+      sadSprite.render(canvas);
+      smileSprite.render(canvas);
     }
 
     if (estado == _EstadoJuego.menu) {
@@ -128,13 +128,13 @@ class EncuentraMain extends Game  {
         p.update(t);
       });
       txtInfo.update(t);
-      // if (sadSprite.mostrar) {
-      //   sadSprite.update(t);
-      // }
+      if (sadSprite.mostrar) {
+        sadSprite.update(t);
+      }
 
-      // if (smileSprite.mostrar) {
-      //   smileSprite.update(t);
-      // }
+      if (smileSprite.mostrar) {
+        smileSprite.update(t);
+      }
       spawnPersonajes.update(t);
     }
   }
@@ -149,6 +149,11 @@ class EncuentraMain extends Game  {
       personajes.forEach((p) {
         if (p.personaje.contains(td.globalPosition)) {
           p.onTapDowm();
+
+          if (puntuacion == numEncontrar) {
+            estado = _EstadoJuego.menu;
+          }
+
         }
       });
     }
@@ -211,6 +216,10 @@ class EncuentraMain extends Game  {
         ));  
         numSpawneados++;
       }
+      // Esto es para que no ocurra el bug de que no spawneo todo y se quede ejecutando para siempre este while y nos mate el game 
+      if (personajes.length >= maxPersonajes) {
+        numSpawneados = personajes.length;
+      }
     }
   }
 
@@ -218,7 +227,6 @@ class EncuentraMain extends Game  {
   void onDetach() {
     super.onDetach();
     Flame.images.clearCache();
-    print('SALIMOSSS');
   }
 
 }
