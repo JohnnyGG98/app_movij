@@ -3,8 +3,10 @@ import 'dart:ui';
 
 import 'package:app_movij/C/colors.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/boton_pausa.dart';
+import 'package:app_movij/pages/juegos/fisica/encuentra/feedback_game.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/menu_encuentra.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/personaje_encuentra.dart';
+import 'package:app_movij/pages/juegos/fisica/encuentra/spawner_encuentra.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/txtinfo_encontrar.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
@@ -29,6 +31,11 @@ class EncuentraMain extends Game  {
     'balon.png',
     'Nave.png'
   ];
+  // Lista de los iconos del feedback 
+  static const List<String> IMG_FEEDBACK = [
+    'emoticon/emoticon-sad.png',
+    'emoticon/emoticon-smile.png'
+  ];
   // Para iniciar el numero de objetos a buscar primero  
   final Random rand = Random();
   // Para saber el objeto seleccionado para buscarlo 
@@ -47,6 +54,11 @@ class EncuentraMain extends Game  {
   TxtInformacionEncontrar txtInfo;  
   MenuEncuentra menuJuego;
   BotonPausa botonPausa;
+  // Sprites para el feedback 
+  FeedbackGame sadSprite;
+  FeedbackGame smileSprite;
+  // Spawner 
+  SpawnerEncuentra spawnPersonajes;
 
   EncuentraMain(this.context, this.personajeSelec){
     initialize();
@@ -55,10 +67,19 @@ class EncuentraMain extends Game  {
   void initialize() async {
     resize(await Flame.util.initialDimensions());
     speed = 150;
-    Flame.images.loadAll(IMG_PERSONAJES);
+    Flame.images.loadAll(IMG_PERSONAJES + IMG_FEEDBACK);
     menuJuego = MenuEncuentra(this);
     botonPausa = BotonPausa(this.screenSize);
     txtInfo = TxtInformacionEncontrar(this);
+    sadSprite = FeedbackGame(
+      em: this, 
+      iconName: 'emoticon/emoticon-sad.png'
+    );
+    smileSprite = FeedbackGame(
+      em: this, 
+      iconName: 'emoticon/emoticon-smile.png'
+    );
+    spawnPersonajes = SpawnerEncuentra(this, maxPersonajes);
     iniciarJuego();
   }
 
@@ -68,8 +89,7 @@ class EncuentraMain extends Game  {
     speed = 150;
     puntuacion = 0;
     numEncontrar = rand.nextInt(25) + 10;  
-    _spawnOtrosPersonajes();
-    _spawnPersonaje();
+    spawn();
   }
 
   @override
@@ -85,12 +105,13 @@ class EncuentraMain extends Game  {
 
     botonPausa.render(canvas);
     
-
     if (estado == _EstadoJuego.jugando) {
       personajes.forEach((p) {
         p.render(canvas);
       });
       txtInfo.render(canvas);
+      sadSprite.render(canvas);
+      smileSprite.render(canvas);
     }
 
     if (estado == _EstadoJuego.menu) {
@@ -106,6 +127,14 @@ class EncuentraMain extends Game  {
         p.update(t);
       });
       txtInfo.update(t);
+      if (sadSprite.mostrar) {
+        sadSprite.update(t);
+      }
+
+      if (smileSprite.mostrar) {
+        smileSprite.update(t);
+      }
+      spawnPersonajes.update(t);
     }
   }
 
@@ -115,20 +144,14 @@ class EncuentraMain extends Game  {
   }
 
   void onTapDowm(TapDownDetails td) {
-    personajes.forEach((p) {
-      if (p.personaje.contains(td.globalPosition)) {
-        p.onTapDowm();
-        puntuacion++;
-        // Actualizamos el numero de personajes 
-        if (puntuacion % 5 == 0 && puntuacion != 0) {
-          _spawnOtrosPersonajes();
-          _spawnPersonaje();
-          if (speed < maxSpeed) {
-            speed += 25;
-          }
+    if (estado == _EstadoJuego.jugando) {
+      personajes.forEach((p) {
+        if (p.personaje.contains(td.globalPosition)) {
+          p.onTapDowm();
+          puntuacion++;
         }
-      }
-    });
+      });
+    }
 
     if (botonPausa.hitBox.contains(td.globalPosition)) {
       if (estado == _EstadoJuego.menu) {
@@ -158,6 +181,13 @@ class EncuentraMain extends Game  {
 
   }
 
+  // Para el spawn 
+
+  void spawn() {
+    _spawnPersonaje();
+    _spawnOtrosPersonajes();
+  }
+
   void _spawnPersonaje() {
     int numPersonajesBuscar = rand.nextInt(2) + 1;
     for (var i = 0; i < numPersonajesBuscar; i++) {
@@ -171,15 +201,24 @@ class EncuentraMain extends Game  {
 
   void _spawnOtrosPersonajes() {
     int numPersonajesBuscar = rand.nextInt(3) + 1;
+    int numSpawneados = 0;
     String personaje = '';
-    for (var i = 0; i < numPersonajesBuscar; i++) {
+    while(numSpawneados < numPersonajesBuscar) {
       personaje = IMG_PERSONAJES[rand.nextInt(IMG_PERSONAJES.length)];
       if (personajes.length < maxPersonajes && personaje != personajeSelec) {
         personajes.add(new PersonajeEncuentra(
           this, false, personaje
         ));  
+        numSpawneados++;
       }
     }
+  }
+
+  @override
+  void onDetach() {
+    super.onDetach();
+    Flame.images.clearCache();
+    print('SALIMOSSS');
   }
 
 }

@@ -5,7 +5,7 @@ import 'package:app_movij/pages/juegos/fisica/encuentra/encuentra_main.dart';
 import 'package:flame/sprite.dart';
 
 final Random rand = Random();
-const double P_SIZE = 50;
+const double P_SIZE = 60;
 
 class PersonajeEncuentra {
 
@@ -15,10 +15,8 @@ class PersonajeEncuentra {
   Offset posToTraslate;
   bool paraEncontrar;
   String img;
-
   Sprite sprite;
-
-  Image image;
+  double _tiempoEspera = 0;
 
   PersonajeEncuentra(this.em, this.paraEncontrar, this.img){
     _spawn();  
@@ -50,9 +48,14 @@ class PersonajeEncuentra {
         Offset stepToPos = Offset.fromDirection(toPos.direction, distance);
         personaje = personaje.shift(stepToPos);
       } else {
-        if (!paraEncontrar) {
+        _tiempoEspera += t;
+        if (!paraEncontrar && _tiempoEspera > 3) {
           posToTraslate = _getRandomOffset();
         }
+
+        // if (paraEncontrar && _tiempoEspera > 6) {
+        //   posToTraslate = _getRandomOffset();
+        // }
       }
     }
   }
@@ -60,14 +63,46 @@ class PersonajeEncuentra {
   void onTapDowm() {
     if (!encontrado && paraEncontrar) {
       encontrado = true;
+      em.smileSprite.mostrarSprite();
+    } else {
+      em.sadSprite.mostrarSprite();
     }
   }
 
   Offset _getRandomOffset() {
-    return Offset(
-      rand.nextDouble() * (em.screenSize.width - P_SIZE), 
-      rand.nextDouble() * (em.screenSize.height - P_SIZE)
-    );
+    _tiempoEspera = 0;
+    double x, y; 
+    switch(rand.nextInt(4)) {
+      case 0: 
+        // Solo arriba
+        x = rand.nextDouble() * em.screenSize.width;
+        y = 0;
+      break;
+      case 1:
+        // Solo en la derecha
+        x = em.screenSize.width - (P_SIZE * 2.5);
+        y = rand.nextDouble() * em.screenSize.height;
+      break;
+      case 2:
+        // Solo abajo
+        x = rand.nextDouble() * em.screenSize.width;
+        y = em.screenSize.height; 
+      break;
+      case 3: 
+        // Solo izquierda 
+        x = P_SIZE * 2.5; 
+        y = rand.nextDouble() * em.screenSize.height;
+      break;
+    }
+
+    // Para que no se pase de la pantalla 
+    if (y > (em.screenSize.height / 2)) {
+      y = y - P_SIZE * 2.5;
+    } else {
+      y = y + P_SIZE * 2.5;
+    }
+
+    return Offset(x, y);
   }
 
   void _spawn() async {
