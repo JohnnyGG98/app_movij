@@ -47,8 +47,6 @@ class _ClasificaMainPageState extends State<ClasificaMainPage> {
 
       body: Column(
         children: <Widget>[
-          /*
-          ,*/
           Container(
             height: 175.0,
             width: double.infinity,

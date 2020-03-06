@@ -29,7 +29,9 @@ class JuegosTFPage extends StatelessWidget {
       SizedBox(height: 35,),
       getBtnJuego('Camina', () {}),
       SizedBox(height: 35,),
-      getBtnJuego('Ordena', () {}),
+      getBtnJuego('Ordena', () {
+        Navigator.of(context).pushNamed('juego/tf/ordena');
+      }),
       SizedBox(height: 35,),
       getBtnJuego('Clasifica', () {
         Navigator.of(context).pushNamed('juego/tf/clasifica');
