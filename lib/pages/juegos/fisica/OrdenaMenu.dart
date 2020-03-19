@@ -97,7 +97,7 @@ class __ObjetoOrdenaState extends State<_ObjetoOrdena> {
     List<String> paths = new List();
     String usados = '';
     for (var i = 0; i < 5; i++) {
-      String path = getRandomPathOrdena();;
+      String path = getRandomPathOrdena();
       while(!usados.contains(path)) {
         path = getRandomPathOrdena();
         print(path);

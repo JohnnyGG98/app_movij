@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:app_movij/C/colors.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/personaje_encuentra.dart';
 import 'package:flutter/material.dart';
 
@@ -26,8 +25,26 @@ class _OrdenaMainPageState extends State<OrdenaMainPage> {
   int _seed = rand.nextInt(10);
   int _intentos = 1;
 
+  _updateMyItems(int oldIndex,int newIndex) {
+    print('Old ' + oldIndex.toString());
+    print('New ' + newIndex.toString());
+    _seed++;
+    if (newIndex > oldIndex) {
+      newIndex -= 1;
+    }
+
+    double aux = _tamanos.removeAt(oldIndex);
+    _tamanos.insert(newIndex, aux);    
+  }
+
+  List<double> _tamanos;
+
   @override
   Widget build(BuildContext context) {
+    if (_tamanos == null) {
+      _tamanos = _getTamanos();
+    }
+    
     return Scaffold(
       appBar: AppBar(
         title: Text('Ordena | Intentos: $_intentos'),
@@ -39,6 +56,7 @@ class _OrdenaMainPageState extends State<OrdenaMainPage> {
           setState(() {
             _seed++;
             _intentos++;
+            _tamanos = _getTamanos();
           });
         }
       ),
@@ -64,15 +82,28 @@ class _OrdenaMainPageState extends State<OrdenaMainPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Expanded(
-                  child: ListView(
-                    children: _getOrdenar(),
+                  child: ReorderableListView(
+                    children: _tamanos.map((s) => Container(
+                      key: ValueKey(_seed + s),
+                      height: _SIZECTN,
+                      width: double.infinity,
+                      child: _getImg(s),
+                    )).toList() 
+                    ,
+  
+                    onReorder: (oldIndex, newIndex) {
+                      setState(() {
+                        _updateMyItems(oldIndex, newIndex);
+                      });
+                    },
+                    
                   )
                 ),
-                Expanded(
-                  child: ListView(
-                    children: _getOrdenar(),
-                  )
-                ),
+                // Expanded(
+                //   child: ListView(
+                //     children: _getOrdenar(),
+                //   )
+                // ),
               ],
             )
           )
@@ -81,62 +112,25 @@ class _OrdenaMainPageState extends State<OrdenaMainPage> {
     );
   }
 
-  List<Widget> _getOrdenar() {
-    _seed++;
-    List<Widget> widgets = new List(); 
+  List<double> _getTamanos() {
+    List<double> _tamanos = new List();
+    _tamanos.add(_PEQUENA);
+    _tamanos.add(_MEDIANA);
+    _tamanos.add(_GRANDE);
+    return _tamanos..shuffle(Random(_seed));
+  }
 
-    widgets.add(
-      Container(
-        height: _SIZECTN,
-        width: double.infinity,
-        child: Center(
-          child: Container(
-            height: _PEQUENA,
-            width: _PEQUENA,
-            child: Image(
-              image: AssetImage(widget._img),
-              fit: BoxFit.contain,
-            ),
-          ),
+  Widget _getImg(double tamano) {
+    return Center(
+      child: Container(
+        height: tamano,
+        width: tamano,
+        child: Image(
+          image: AssetImage(widget._img),
+          fit: BoxFit.contain,
         ),
-      )
-    );
-
-    widgets.add(
-      Container(
-        height: _SIZECTN,
-        width: double.infinity,
-        child: Center(
-          child: Container(
-            height: _MEDIANA,
-            width: _MEDIANA,
-            child: Image(
-              image: AssetImage(widget._img),
-              fit: BoxFit.contain,
-            ),
-          ),
-        ),
-      )
-    );
-
-    widgets.add(
-      Container(
-        height: _SIZECTN,
-        width: double.infinity,
-        child: Center(
-          child: Container(
-            height: _GRANDE,
-            width: _GRANDE,
-            child: Image(
-              image: AssetImage(widget._img),
-              fit: BoxFit.contain,
-            ),
-          ),
-        ),
-      )
-    );
-
-    return widgets..shuffle(Random(_seed));
+      ),
+    ); 
   }
 
 }
