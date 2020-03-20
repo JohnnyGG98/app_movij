@@ -100,7 +100,6 @@ class __ObjetoOrdenaState extends State<_ObjetoOrdena> {
       String path = getRandomPathOrdena();
       while(!usados.contains(path)) {
         path = getRandomPathOrdena();
-        print(path);
         if (!usados.contains(path)) {
           usados += path;
           paths.add(path);

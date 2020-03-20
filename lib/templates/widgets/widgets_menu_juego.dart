@@ -24,17 +24,17 @@ Widget getListaJuegos(BuildContext context, String titulo, Function lista) {
 
         Expanded(
           child: Container(
-              decoration: BoxDecoration(
-                color: PRIMARY_COLOR,
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(100.0))
-              ),
-              height: MediaQuery.of(context).size.height,
-              child: Padding(padding: EdgeInsets.only(top: 35.0),
-                child: ListView(
-                  padding: EdgeInsets.symmetric(vertical: 40, horizontal: 50),
-                  children: lista(context),
-                ) 
-              ),
+            decoration: BoxDecoration(
+              color: PRIMARY_COLOR,
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(100.0))
+            ),
+            height: MediaQuery.of(context).size.height,
+            child: Padding(padding: EdgeInsets.only(top: 35.0),
+              child: ListView(
+                padding: EdgeInsets.symmetric(vertical: 40, horizontal: 50),
+                children: lista(context),
+              ) 
+            ),
           ),
         )
       ],

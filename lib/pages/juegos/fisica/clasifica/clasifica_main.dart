@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:app_movij/C/colors.dart';
 import 'package:app_movij/pages/juegos/fisica/clasifica/const_clasifica.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/personaje_encuentra.dart';
+import 'package:app_movij/templates/widgets/widget_victoria.dart';
 import 'package:app_movij/utils/speak.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +22,7 @@ class _ClasificaMainPageState extends State<ClasificaMainPage> {
   final Map<String, bool> _score = {};
   final Map<String, ClasificaJuego> _choices = {};
   List<Color> _colors = [];
+  bool _mostrarVictoria = false; 
 
   // Para crear la lista random 
   int _seed = rand.nextInt(10);
@@ -29,7 +31,17 @@ class _ClasificaMainPageState extends State<ClasificaMainPage> {
 
   @override
   Widget build(BuildContext context) {
-    _setChoices();
+    
+    if (_score.length > 0 && _score.length == _choices.length && !_mostrarVictoria) {
+      Future.delayed(const Duration(milliseconds: 1000), () {
+        setState(() {
+          _mostrarVictoria = true;
+        });
+      });
+    } else {
+      _setChoices();
+    }
+    
     return Scaffold(
       appBar: AppBar(
         title: Text('Puntuación ${_score.length} / ${widget.items.length}'),
@@ -39,6 +51,7 @@ class _ClasificaMainPageState extends State<ClasificaMainPage> {
         child: Icon(Icons.refresh),
         onPressed: () {
           setState(() {
+            _mostrarVictoria = false;
             _score.clear();
             _seed++;
             _colors..shuffle(Random(_seed));
@@ -46,7 +59,7 @@ class _ClasificaMainPageState extends State<ClasificaMainPage> {
         }
       ),
 
-      body: Column(
+      body: _mostrarVictoria ? baileVictoria(context) : Column(
         children: <Widget>[
           Container(
             height: 175.0,
