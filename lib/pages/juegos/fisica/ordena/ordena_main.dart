@@ -26,8 +26,6 @@ class _OrdenaMainPageState extends State<OrdenaMainPage> {
   int _intentos = 1;
 
   _updateMyItems(int oldIndex,int newIndex) {
-    print('Old ' + oldIndex.toString());
-    print('New ' + newIndex.toString());
     _seed++;
     if (newIndex > oldIndex) {
       newIndex -= 1;
@@ -99,11 +97,6 @@ class _OrdenaMainPageState extends State<OrdenaMainPage> {
                     
                   )
                 ),
-                // Expanded(
-                //   child: ListView(
-                //     children: _getOrdenar(),
-                //   )
-                // ),
               ],
             )
           )
@@ -117,6 +110,7 @@ class _OrdenaMainPageState extends State<OrdenaMainPage> {
     _tamanos.add(_PEQUENA);
     _tamanos.add(_MEDIANA);
     _tamanos.add(_GRANDE);
+    _tamanos.add(_SIZECTN);
     return _tamanos..shuffle(Random(_seed));
   }
 
