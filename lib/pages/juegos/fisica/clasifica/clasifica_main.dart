@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:app_movij/C/colors.dart';
 import 'package:app_movij/pages/juegos/fisica/clasifica/const_clasifica.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/personaje_encuentra.dart';
+import 'package:app_movij/utils/speak.dart';
 import 'package:flutter/material.dart';
 
 class ClasificaMainPage extends StatefulWidget {
@@ -175,6 +176,7 @@ class _ClasificaMainPageState extends State<ClasificaMainPage> {
       onAccept: (data) {
         setState(() {
           _score[data.imgPath] = true;
+          speakNow(data.colorName);
         });
       },
 

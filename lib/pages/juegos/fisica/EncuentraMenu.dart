@@ -54,7 +54,7 @@ class __PersonasEncuentraState extends State<_PersonasEncuentra> {
         _imgPath != '' ? 
           getPlayButtom((){
             EncuentraMain em = new EncuentraMain(context, _nombrePersonaje);
-            FlameConst.TAPPER.onTapDown = em.onTapDowm;
+            FlameConst.tapper.onTapDown = em.onTapDowm;
 
             // Navigator.of(context).push(MaterialPageRoute(
             //   builder: (context) => // Iniciamos la clase

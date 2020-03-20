@@ -3,6 +3,6 @@ import 'package:flutter/gestures.dart';
 
 class FlameConst {
   static Util miFlameUtil;
-  static TapGestureRecognizer TAPPER = TapGestureRecognizer();
+  static TapGestureRecognizer tapper = TapGestureRecognizer();
 }
 

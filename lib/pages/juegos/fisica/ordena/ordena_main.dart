@@ -21,9 +21,11 @@ const double _SIZECTN = 175;
 
 class _OrdenaMainPageState extends State<OrdenaMainPage> {
 
-
   int _seed = rand.nextInt(10);
+  int _gameMode = rand.nextInt(1);
   int _intentos = 1;
+  bool _win = false; 
+  String _orden = '';
 
   _updateMyItems(int oldIndex,int newIndex) {
     _seed++;
@@ -33,6 +35,24 @@ class _OrdenaMainPageState extends State<OrdenaMainPage> {
 
     double aux = _tamanos.removeAt(oldIndex);
     _tamanos.insert(newIndex, aux);    
+    _youWin();
+  }
+
+  void _youWin() {
+    List<double> ordenados = List.of(_tamanos);
+    if (_gameMode == 0) {
+      ordenados.sort();
+    } else {
+      ordenados.sort((a, b) => b.compareTo(a));
+    }
+    
+    _win = true; 
+    for (var i = 0; i < ordenados.length; i++) {
+      if (_tamanos[i] != ordenados[i]) {
+        _win = false;
+        break; 
+      }
+    }
   }
 
   List<double> _tamanos;
@@ -42,6 +62,12 @@ class _OrdenaMainPageState extends State<OrdenaMainPage> {
     if (_tamanos == null) {
       _tamanos = _getTamanos();
     }
+
+    if (_gameMode == 0) {
+      _orden = 'Pequeno a grande';
+    } else {
+      _orden = 'Grande a pequeno';
+    }
     
     return Scaffold(
       appBar: AppBar(
@@ -49,12 +75,14 @@ class _OrdenaMainPageState extends State<OrdenaMainPage> {
       ),
 
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.refresh),
+        child: Icon(Icons.check),
         onPressed: () {
           setState(() {
+            _win = false; 
             _seed++;
             _intentos++;
             _tamanos = _getTamanos();
+            _gameMode = rand.nextInt(2);
           });
         }
       ),
@@ -63,12 +91,12 @@ class _OrdenaMainPageState extends State<OrdenaMainPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
-            height: 75.0,
+            height: 50.0,
             width: double.infinity,
             child: Center(
-              child: Text('PEQUEÑO A GRANDE',
+              child: Text(_win ? 'YOU WIN' : _orden,
                 style: TextStyle(
-                  fontSize: 30.0
+                  fontSize: 20.0
                 ), 
               ),
             ),

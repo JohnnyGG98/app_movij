@@ -17,7 +17,7 @@ class MenuOrdenaPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          InformacionJuego('Se debe ordenar el objeto, de dos diferentes maneras. De mayor al menor y del menor al mayor.\n\nSeleccionar objetos:'),
+          InformacionJuego('Se debe ordenar el objeto, de dos diferentes formas. De pequeño a grande y de grande a pequeño.\n\nSeleccionar objetos:'),
           _ObjetoOrdena()
         ],
       ),

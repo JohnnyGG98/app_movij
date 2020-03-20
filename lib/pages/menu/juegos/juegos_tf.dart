@@ -23,7 +23,7 @@ class JuegosTFPage extends StatelessWidget {
         // La puntuacion mas alta guardada 
         SharedPreferences store = await SharedPreferences.getInstance();
         GameController gc = new GameController(store);
-        FlameConst.TAPPER.onTapDown = gc.onTapDown;
+        FlameConst.tapper.onTapDown = gc.onTapDown;
         Navigator.pushNamed(context, 'jugar', arguments: gc.widget);
       }),
       SizedBox(height: 35,),

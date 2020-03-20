@@ -16,7 +16,7 @@ void main() async {
   await flameUtil.setOrientation(DeviceOrientation.portraitUp);
   
   runApp(MyApp());
-  flameUtil.addGestureRecognizer(FlameConst.TAPPER);
+  flameUtil.addGestureRecognizer(FlameConst.tapper);
 
   FlameConst.miFlameUtil = flameUtil;
 }
