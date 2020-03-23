@@ -25,12 +25,13 @@ const double _SIZECTN = 175;
 class _OrdenaMainPageState extends State<OrdenaMainPage> {
 
   int _seed = rand.nextInt(10);
-  int _gameMode = rand.nextInt(1);
+  int _gameMode = rand.nextInt(2);
   int _intentos = 1;
   bool _win = false; 
   bool _mostrarVictoria = false; 
   String _orden = '';
   List<double> _tamanos;
+  int _numMov = 0; 
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class _OrdenaMainPageState extends State<OrdenaMainPage> {
       _tamanos = _getTamanos();
     }
 
-    if (_intentos == 1) {
+    if (_intentos == 1 && _numMov == 0) {
       _youWin();
       if (_win ) {
         _newGame();
@@ -64,7 +65,7 @@ class _OrdenaMainPageState extends State<OrdenaMainPage> {
     
     return Scaffold(
       appBar: AppBar(
-        title: Text('Ordenados: $_intentos'),
+        title: Text('Número movimientos:  $_numMov'),
       ),
 
       floatingActionButton: FloatingActionButton(
@@ -73,7 +74,7 @@ class _OrdenaMainPageState extends State<OrdenaMainPage> {
         backgroundColor: _mostrarVictoria ? ACCENT_COLOR : Colors.black45,
       ),
 
-      body: _mostrarVictoria ? baileVictoria(context) : Column(
+      body: _mostrarVictoria ? VictoriaJuego('Edisson') : Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
@@ -100,6 +101,7 @@ class _OrdenaMainPageState extends State<OrdenaMainPage> {
 
   void _newGame() {
     setState(() {
+      _numMov = 0;
       _mostrarVictoria = false;
       _seed++;
       _intentos++;
@@ -155,6 +157,7 @@ class _OrdenaMainPageState extends State<OrdenaMainPage> {
     double aux = _tamanos.removeAt(oldIndex);
     _tamanos.insert(newIndex, aux);    
     _youWin();
+    _numMov++; 
   }
 
   void _youWin() {

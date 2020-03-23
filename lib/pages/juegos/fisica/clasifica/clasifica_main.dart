@@ -59,7 +59,7 @@ class _ClasificaMainPageState extends State<ClasificaMainPage> {
         }
       ),
 
-      body: _mostrarVictoria ? baileVictoria(context) : Column(
+      body: _mostrarVictoria ? VictoriaJuego('Alexander') : Column(
         children: <Widget>[
           Container(
             height: 175.0,

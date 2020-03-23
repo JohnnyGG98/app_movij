@@ -1,4 +1,4 @@
-import 'package:app_movij/C/cons.dart';
+
 import 'package:app_movij/pages/home.dart';
 import 'package:app_movij/pages/juegos/fisica/ClasificaMenu.dart';
 import 'package:app_movij/pages/juegos/fisica/EncuentraMenu.dart';
@@ -45,7 +45,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Color.fromRGBO(52, 73, 94, 1.0),
         accentColor: Color.fromRGBO(39, 174, 96, 1.0),
-        // fontFamily: FONT_FAMILY_CONSOLA
       ),
     );
   }
