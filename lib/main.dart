@@ -3,6 +3,7 @@ import 'package:app_movij/pages/home.dart';
 import 'package:app_movij/pages/juegos/fisica/ClasificaMenu.dart';
 import 'package:app_movij/pages/juegos/fisica/EncuentraMenu.dart';
 import 'package:app_movij/pages/juegos/fisica/OrdenaMenu.dart';
+import 'package:app_movij/pages/juegos/lenguaje/TiempoMenu.dart';
 import 'package:app_movij/pages/menu/juegos/menu_juego.dart';
 import 'package:app_movij/pages/menu/seleccionar_perfil.dart';
 import 'package:app_movij/components/add_game.dart';
@@ -38,6 +39,8 @@ class MyApp extends StatelessWidget {
         'juego/tf/encuentra': (BuildContext ct) => MenuEncuentraPage(),
         'juego/tf/ordena': (BuildContext ct) => MenuOrdenaPage(),
         'juego/tf/clasifica': (BuildContext ct) => MenuClasificaPage(),
+
+        'juego/tl/tiempo': (BuildContext ct) => MenuTiempoPage(),
 
         // Juego Page 
         'jugar': (BuildContext ct) => AddGame()

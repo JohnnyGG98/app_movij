@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 
 class PersonaPreview extends StatefulWidget {
   final pathImage;
+  final double height, width;
+  final int tiempo; 
 
-  PersonaPreview(this.pathImage);
+  PersonaPreview(this.pathImage, {
+    this.height:175, 
+    this.width:175,
+    this.tiempo:400
+  });
 
   @override
   _PersonaPreviewState createState() => _PersonaPreviewState();
@@ -16,7 +22,7 @@ class _PersonaPreviewState extends State<PersonaPreview> with TickerProviderStat
   void initState() {
     super.initState();
     animationController = AnimationController(
-      vsync: this, duration: const Duration(seconds: 400)
+      vsync: this, duration: Duration(seconds: widget.tiempo)
     );
     animationController.forward();
     animationController.addListener(() {
@@ -32,8 +38,8 @@ class _PersonaPreviewState extends State<PersonaPreview> with TickerProviderStat
   Widget build(BuildContext context) {
 
     Widget miPersonaje = Container(
-      height: 175,
-      width: 175,
+      height: widget.height,
+      width: widget.width,
       child: Image(
         image: AssetImage(widget.pathImage),
         fit: BoxFit.contain
