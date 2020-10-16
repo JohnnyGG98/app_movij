@@ -48,11 +48,11 @@ class _MenuJuegoPageState extends State<MenuJuegoPage> {
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.touch_app),
-          title: Text('Fisica')
+          label: 'Fisica',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.record_voice_over),
-          title: Text('Lenguaje')
+          label: 'Lenguaje'
         )
       ],
     );

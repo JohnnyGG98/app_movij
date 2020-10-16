@@ -13,9 +13,7 @@ with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    animationController = AnimationController(
-      vsync: this, duration: const Duration(seconds: 10)
-    );
+    animationController = AnimationController(vsync: this, duration: const Duration(seconds: 10),);
     animationController.forward();
   }
 
