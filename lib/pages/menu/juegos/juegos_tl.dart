@@ -19,7 +19,9 @@ class JuegosTLPage extends StatelessWidget {
         Navigator.of(context).pushNamed('juego/tl/tiempo');
       }),
       SizedBox(height: 35,),
-      getBtnJuego('Luz', () {}),
+      getBtnJuego('Luz', () {
+        Navigator.of(context).pushNamed('juego/tl/luz');
+      }),
       SizedBox(height: 35,),
       getBtnJuego('Hora', (){}),
       SizedBox(height: 35,),
