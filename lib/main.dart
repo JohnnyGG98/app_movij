@@ -1,4 +1,3 @@
-import 'package:app_movij/C/colors.dart';
 import 'package:app_movij/pages/home.dart';
 import 'package:app_movij/pages/juegos/fisica/ClasificaMenu.dart';
 import 'package:app_movij/pages/juegos/fisica/EncuentraMenu.dart';
