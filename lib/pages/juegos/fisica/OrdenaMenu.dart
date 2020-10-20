@@ -17,8 +17,10 @@ class MenuOrdenaPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          InformacionJuego('Se debe ordenar el objeto, de dos diferentes formas. De pequeño a grande y de grande a pequeño.\n\nSeleccionar objetos:'),
-          _ObjetoOrdena()
+          InformacionJuego(
+            'Se debe ordenar el objeto, de dos diferentes formas. De pequeño a grande y de grande a pequeño.\n\nSeleccionar objetos:',
+          ),
+          _ObjetoOrdena(),
         ],
       ),
     );
@@ -31,8 +33,7 @@ class _ObjetoOrdena extends StatefulWidget {
 }
 
 class __ObjetoOrdenaState extends State<_ObjetoOrdena> {
-
-  String _imgPath = ''; 
+  String _imgPath = '';
   List<String> _paths;
 
   @override
@@ -43,28 +44,22 @@ class __ObjetoOrdenaState extends State<_ObjetoOrdena> {
           height: 150.0,
           child: _menu(),
         ),
-
-        SizedBox(height: 20,),
-
-        _imgPath != '' ? 
-          getPlayButtom((){
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => OrdenaMainPage(_imgPath)
-            ));
-          }) :
-          Container(),
-
-        SizedBox(height: 40,),
-
-        _imgPath != '' ? 
-          PersonaPreview(_imgPath) : 
-          Container()
+        SizedBox(height: 20),
+        _imgPath != ''
+            ? getPlayButtom(() {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => OrdenaMainPage(_imgPath)));
+              })
+            : Container(),
+        SizedBox(height: 40),
+        _imgPath != '' ? PersonaPreview(_imgPath) : Container()
       ],
     );
   }
 
   Widget _menu() {
     return ListView(
+      physics: BouncingScrollPhysics(),
       scrollDirection: Axis.horizontal,
       padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
       children: _getImagenes(),
@@ -78,14 +73,14 @@ class __ObjetoOrdenaState extends State<_ObjetoOrdena> {
     List<Widget> widgets = new List();
 
     for (String path in _paths) {
-      widgets.add(
-        getBtnPersonaje(path, (){
-          setState(() {
-            _imgPath = path;
-          });
-        })
-      );
-      widgets.add(SizedBox(width: 40,));
+      widgets.add(getBtnPersonaje(path, () {
+        setState(() {
+          _imgPath = path;
+        });
+      }));
+      widgets.add(SizedBox(
+        width: 40,
+      ));
     }
 
     widgets.add(_getRandomBtn());
@@ -98,7 +93,7 @@ class __ObjetoOrdenaState extends State<_ObjetoOrdena> {
     String usados = '';
     for (var i = 0; i < 5; i++) {
       String path = getRandomPathOrdena();
-      while(!usados.contains(path)) {
+      while (!usados.contains(path)) {
         path = getRandomPathOrdena();
         if (!usados.contains(path)) {
           usados += path;
@@ -111,11 +106,10 @@ class __ObjetoOrdenaState extends State<_ObjetoOrdena> {
 
   Widget _getRandomBtn() {
     String path = getRandomPathOrdena();
-    return getBtnPersonaje(path, (){
+    return getBtnPersonaje(path, () {
       setState(() {
         _imgPath = path;
       });
     });
   }
-
 }

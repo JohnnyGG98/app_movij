@@ -1,4 +1,3 @@
-
 import 'package:app_movij/templates/fondo.dart';
 import 'package:app_movij/templates/menu_lateral.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +21,7 @@ class SeleccionarPerfilPage extends StatelessWidget {
 
   _getPerfiles() {
     return GridView.builder(
+      physics: BouncingScrollPhysics(),
       padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 15.0),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
@@ -45,13 +45,13 @@ class SeleccionarPerfilPage extends StatelessWidget {
                     border: Border.all(color: Colors.black38),
                     image: DecorationImage(
                       image: AssetImage('assets/app/pocoyo_bg.jpg'),
-                      fit: BoxFit.contain
-                    )
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
-                SizedBox(height: 5,),
+                SizedBox(height: 5),
                 Text(perfiles[i]),
-                Divider()
+                Divider(),
               ],
             ),
           ),
@@ -59,10 +59,9 @@ class SeleccionarPerfilPage extends StatelessWidget {
       },
     );
   }
-
 }
 
-// Data  
+// Data
 List perfiles = [
   'JOHNNY',
   'GUSTAVO',

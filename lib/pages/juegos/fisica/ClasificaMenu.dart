@@ -18,14 +18,15 @@ class MenuClasificaPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          InformacionJuego('Se debe clasificar los objetos, con el color o su categoría correspondiente.\n\nSeleccionar categoría:'),
-          _CategoriaClasifica()
+          InformacionJuego(
+            'Se debe clasificar los objetos, con el color o su categoría correspondiente.\n\nSeleccionar categoría:',
+          ),
+          _CategoriaClasifica(),
         ],
       ),
     );
   }
 }
-
 
 class _CategoriaClasifica extends StatefulWidget {
   @override
@@ -33,14 +34,13 @@ class _CategoriaClasifica extends StatefulWidget {
 }
 
 class __CategoriaClasificaState extends State<_CategoriaClasifica> {
-
   final ListaCategoriasClasifica _lc = ListaCategoriasClasifica();
 
   String _imgPath = '';
   String _nombreCategoria = '';
   List<ClasificaJuego> _categorias;
   String _categoria;
-  
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -49,33 +49,23 @@ class __CategoriaClasificaState extends State<_CategoriaClasifica> {
           height: 150.0,
           child: _menu(),
         ),
-
-        SizedBox(height: 20,),
-
-        _imgPath != '' && _categoria != '' ? 
-          getPlayButtom((){
-            _initJugar(context);
-          }) : 
-          Container(),
-
-        SizedBox(height: 20,),
-
-        _nombreCategoria != '' ? 
-          Text(_nombreCategoria) :
-          Container(),
-        
-        SizedBox(height: 40,),
-
-        _imgPath != '' ? 
-          PersonaPreview(_imgPath) :
-          Container(),
-
+        SizedBox(height: 20),
+        _imgPath != '' && _categoria != ''
+            ? getPlayButtom(() {
+                _initJugar(context);
+              })
+            : Container(),
+        SizedBox(height: 20),
+        _nombreCategoria != '' ? Text(_nombreCategoria) : Container(),
+        SizedBox(height: 40),
+        _imgPath != '' ? PersonaPreview(_imgPath) : Container(),
       ],
     );
   }
 
   Widget _menu() {
     return ListView(
+      physics: BouncingScrollPhysics(),
       scrollDirection: Axis.horizontal,
       padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
       children: _getCategorias(),
@@ -87,31 +77,27 @@ class __CategoriaClasificaState extends State<_CategoriaClasifica> {
       _categorias = _lc.getRandomPaths();
     }
     List<Widget> widgets = new List();
-    
+
     for (var i = 0; i < _categorias.length; i++) {
-      widgets.add(
-        getBtnPersonaje(_categorias[i].imgPath, (){
-          setState(() {
-            _imgPath = _categorias[i].imgPath;
-            _categoria = _categorias[i].categoria;
-            _nombreCategoria = 'Clasificar $_categoria';
-          });
-        })
-      );
-      widgets.add(SizedBox(width: 40,));
+      widgets.add(getBtnPersonaje(_categorias[i].imgPath, () {
+        setState(() {
+          _imgPath = _categorias[i].imgPath;
+          _categoria = _categorias[i].categoria;
+          _nombreCategoria = 'Clasificar $_categoria';
+        });
+      }));
+      widgets.add(SizedBox(width: 40));
     }
 
     ClasificaJuego todos = _lc.getRandomPathAll();
 
-    widgets.add(
-      getBtnPersonaje(todos.imgPath, (){
-        setState(() {
-          _imgPath = todos.imgPath;
-          _categoria = 'Todos';
-          _nombreCategoria = 'Clasificar $_categoria';
-        });
-      })
-    );
+    widgets.add(getBtnPersonaje(todos.imgPath, () {
+      setState(() {
+        _imgPath = todos.imgPath;
+        _categoria = 'Todos';
+        _nombreCategoria = 'Clasificar $_categoria';
+      });
+    }));
     return widgets;
   }
 
@@ -137,10 +123,7 @@ class __CategoriaClasificaState extends State<_CategoriaClasifica> {
 
   void _jugar(BuildContext context, List<ClasificaJuego> items) {
     Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => ClasificaMainPage(items)
-      )
+      MaterialPageRoute(builder: (context) => ClasificaMainPage(items)),
     );
   }
-  
 }

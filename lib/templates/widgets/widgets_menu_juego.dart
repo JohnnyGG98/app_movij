@@ -31,6 +31,7 @@ Widget getListaJuegos(BuildContext context, String titulo, Function lista) {
             height: MediaQuery.of(context).size.height,
             child: Padding(padding: EdgeInsets.only(top: 35.0),
               child: ListView(
+                physics: BouncingScrollPhysics(),
                 padding: EdgeInsets.symmetric(vertical: 40, horizontal: 50),
                 children: lista(context),
               ) 
