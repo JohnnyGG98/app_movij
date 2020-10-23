@@ -20,6 +20,7 @@ class OrdenaMainPage extends StatefulWidget {
 const double _GRANDE = 150;
 const double _MEDIANA = 125;
 const double _PEQUENA = 100;
+// TODO: Cambiar a un matamo dinamico dependiendo del size del dispositivo 
 const double _SIZECTN = 175;
 
 class _OrdenaMainPageState extends State<OrdenaMainPage> {

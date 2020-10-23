@@ -1,16 +1,28 @@
 import 'package:app_movij/C/colors.dart';
+import 'package:app_movij/pages/menu/juegos/menu_juego_tablet.dart';
 import 'package:app_movij/templates/menu_lateral.dart';
+import 'package:app_movij/templates/widgets/responsive.dart';
 import 'package:flutter/material.dart';
 
 import 'juegos_tf.dart';
 import 'juegos_tl.dart';
 
-class MenuJuegoPage extends StatefulWidget {
+class MenuJuegoPage extends StatelessWidget {
   @override
-  _MenuJuegoPageState createState() => _MenuJuegoPageState();
+  Widget build(BuildContext context) {
+    return Responsive(
+      mobile: MenuJuegoMobile(),
+      tablet: MenuJuegoTablet(),
+    );
+  }
 }
 
-class _MenuJuegoPageState extends State<MenuJuegoPage> {
+class MenuJuegoMobile extends StatefulWidget {
+  @override
+  _MenuJuegoMobilState createState() => _MenuJuegoMobilState();
+}
+
+class _MenuJuegoMobilState extends State<MenuJuegoMobile> {
   int _actualPage = 0;
 
   @override
@@ -26,11 +38,14 @@ class _MenuJuegoPageState extends State<MenuJuegoPage> {
   }
 
   Widget _loadPage(int actualPage) {
-    switch(actualPage) {
-      case 0: return JuegosTFPage();
-      case 1: return JuegosTLPage();
-      
-      default: return Container(color: Colors.white);
+    switch (actualPage) {
+      case 0:
+        return JuegosTFPage();
+      case 1:
+        return JuegosTLPage();
+
+      default:
+        return Container(color: Colors.white);
     }
   }
 
@@ -40,7 +55,7 @@ class _MenuJuegoPageState extends State<MenuJuegoPage> {
       selectedItemColor: Colors.white,
       unselectedItemColor: Colors.white54,
       currentIndex: _actualPage,
-      onTap: (index){
+      onTap: (index) {
         setState(() {
           _actualPage = index;
         });
@@ -51,11 +66,8 @@ class _MenuJuegoPageState extends State<MenuJuegoPage> {
           label: 'Fisica',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.record_voice_over),
-          label: 'Lenguaje'
-        )
+            icon: Icon(Icons.record_voice_over), label: 'Lenguaje')
       ],
     );
   }
-
 }

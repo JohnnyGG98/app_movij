@@ -1,5 +1,6 @@
 import 'package:app_movij/templates/fondo.dart';
 import 'package:app_movij/templates/menu_lateral.dart';
+import 'package:app_movij/templates/widgets/responsive.dart';
 import 'package:flutter/material.dart';
 
 class SeleccionarPerfilPage extends StatelessWidget {
@@ -12,19 +13,19 @@ class SeleccionarPerfilPage extends StatelessWidget {
       body: CustomPaint(
         painter: PerfilPainter(),
         child: Container(
-          child: _getPerfiles(),
+          child: _getPerfiles(context),
         ),
       ),
       drawer: getDrawer(context),
     );
   }
 
-  _getPerfiles() {
+  _getPerfiles(BuildContext context) {
     return GridView.builder(
       physics: BouncingScrollPhysics(),
       padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 15.0),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
+        crossAxisCount: Responsive.isMobile(context) ? 2 : 4,
         crossAxisSpacing: 60,
         mainAxisSpacing: 10,
       ),
