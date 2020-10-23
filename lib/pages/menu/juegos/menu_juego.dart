@@ -31,7 +31,7 @@ class _MenuJuegoMobilState extends State<MenuJuegoMobile> {
       appBar: AppBar(
         title: Text('Juegos'),
       ),
-      drawer: getDrawer(context),
+      drawer: MenuLateral(),
       body: _loadPage(_actualPage),
       bottomNavigationBar: _bottomBar(),
     );

@@ -14,7 +14,7 @@ class MenuClasificaPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Clasifica'),
       ),
-      drawer: getDrawer(context),
+      drawer: MenuLateral(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[

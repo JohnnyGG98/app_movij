@@ -55,7 +55,7 @@ class _MenuTiempoPageState extends State<MenuTiempoPage>
       appBar: AppBar(
         title: Text('Tiempo'),
       ),
-      drawer: getDrawer(context),
+      drawer: MenuLateral(),
       body: Stack(
         children: <Widget>[
           Container(

@@ -13,7 +13,7 @@ class MenuEncuentraPage extends StatelessWidget {
         appBar: AppBar(
           title: Text('Encuentra'),
         ),
-        drawer: getDrawer(context),
+        drawer: MenuLateral(),
         body: Column(
           // mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,

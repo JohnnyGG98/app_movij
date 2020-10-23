@@ -10,7 +10,7 @@ class MenuJuegoTablet extends StatelessWidget {
       appBar: AppBar(
         title: Text('Juegos'),
       ),
-      drawer: getDrawer(context),
+      drawer: MenuLateral(),
       body: Row(
         children: <Widget>[
           Expanded(child: JuegosTFPage()),

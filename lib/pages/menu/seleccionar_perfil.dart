@@ -16,7 +16,7 @@ class SeleccionarPerfilPage extends StatelessWidget {
           child: _getPerfiles(context),
         ),
       ),
-      drawer: getDrawer(context),
+      drawer: MenuLateral(),
     );
   }
 

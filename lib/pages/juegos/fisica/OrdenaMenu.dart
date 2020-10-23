@@ -13,7 +13,7 @@ class MenuOrdenaPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Ordena'),
       ),
-      drawer: getDrawer(context),
+      drawer: MenuLateral(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
