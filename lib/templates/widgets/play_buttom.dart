@@ -16,7 +16,6 @@ class PlayButton extends StatefulWidget {
 
 class _PlayButtonState extends State<PlayButton>
     with SingleTickerProviderStateMixin {
-  AudioPlayer _audioPlayer;
   AnimationController _controller;
   double scale;
 
@@ -36,7 +35,6 @@ class _PlayButtonState extends State<PlayButton>
 
   @override
   void dispose() {
-    _audioPlayer?.stop();
     _controller?.dispose();
     super.dispose();
   }
@@ -50,7 +48,7 @@ class _PlayButtonState extends State<PlayButton>
         color: ACCENT_COLOR,
         onPressed: () async {
           _controller.forward();
-          _audioPlayer = await Flame.audio.play('play.wav', volume: 0.25);
+          await Flame.audio.play('play.wav', volume: 0.25);
           Future.delayed(const Duration(milliseconds: 500), () {
             _controller.reverse();
             widget.onPlay();
