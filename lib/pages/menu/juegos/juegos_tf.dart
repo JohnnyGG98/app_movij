@@ -1,45 +1,32 @@
-import 'package:app_movij/game_ctr.dart';
-import 'package:app_movij/templates/btn_juego.dart';
-import 'package:app_movij/templates/widgets/widgets_menu_juego.dart';
+import 'package:app_movij/models/button_game_model.dart';
+import 'package:app_movij/pages/menu/juegos/button_game.dart';
+import 'package:app_movij/pages/menu/juegos/head_list_game.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import 'package:app_movij/utils/flame_const.dart';
 
 class JuegosTFPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MenuJuegoMobile(
-      titulo: 'Terapia Fisica',
-      lista: _btns,
+    return Container(
+      height: double.infinity,
+      padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
+      child: Column(
+        children: [
+          HeadListGame(
+            tipoJuego: 'Terapia\nFisica',
+            icon: Icons.touch_app_sharp,
+          ),
+          SizedBox(height: 20),
+          Expanded(
+            child: ListView.builder(
+              physics: BouncingScrollPhysics(),
+              itemCount: buttonsTF.length,
+              itemBuilder: (BuildContext context, int i) {
+                return ButtonGame(model: buttonsTF[i]);
+              },
+            ),
+          )
+        ],
+      ),
     );
-  }
-
-  List<Widget> _btns(BuildContext context) {
-    return [
-      getBtnJuego('Encuentra', () {
-        Navigator.of(context).pushNamed('juego/tf/encuentra');
-      }),
-      SizedBox(height: 35),
-      getBtnJuego('Sigue', () async {
-        // La puntuacion mas alta guardada
-        SharedPreferences store = await SharedPreferences.getInstance();
-        GameController gc = new GameController(store);
-        FlameConst.tapper.onTapDown = gc.onTapDown;
-        Navigator.pushNamed(context, 'jugar', arguments: gc.widget);
-      }),
-      SizedBox(height: 35),
-      getBtnJuego('Camina', () {}),
-      SizedBox(height: 35),
-      getBtnJuego('Ordena', () {
-        Navigator.of(context).pushNamed('juego/tf/ordena');
-      }),
-      SizedBox(height: 35),
-      getBtnJuego('Clasifica', () {
-        Navigator.of(context).pushNamed('juego/tf/clasifica');
-      }),
-      SizedBox(height: 35),
-      getBtnJuego('Otros', () {}),
-    ];
   }
 }
