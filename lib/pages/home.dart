@@ -1,7 +1,7 @@
-import 'package:app_movij/templates/copy.dart';
 import 'package:app_movij/templates/fondo.dart';
-import 'package:app_movij/templates/widgets/play_buttom.dart';
 import 'package:app_movij/utils/pantalla.dart';
+import 'package:app_movij/widgets/home/home_copy.dart';
+import 'package:app_movij/widgets/home/home_play_button.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget with PortraitModeMixin {
@@ -24,16 +24,13 @@ class HomePage extends StatelessWidget with PortraitModeMixin {
                 left: size.width / 2 - SIZE_LOGO,
                 child: _ipcaLogo(),
               ),
-              Center(
-                child: PlayButton(onPlay: () {
-                  Navigator.of(context).pushNamed('seleccionarPerfil');
-                }),
+              Positioned(
+                top: size.height * 0.675,
+                left: size.width * 0.25,
+                right: size.width * 0.25,
+                child: HomeCopy(),
               ),
-              Container(
-                margin: EdgeInsets.only(top: size.height * 0.70),
-                width: double.infinity,
-                child: getCopy(Colors.white),
-              )
+              Center(child: HomePlayButton()),
             ],
           ),
         ),
@@ -61,5 +58,4 @@ class HomePage extends StatelessWidget with PortraitModeMixin {
       ),
     );
   }
-
 }

@@ -8,6 +8,7 @@ import 'package:app_movij/pages/menu/juegos/menu_juego.dart';
 import 'package:app_movij/pages/menu/seleccionar_perfil.dart';
 import 'package:app_movij/components/add_game.dart';
 import 'package:app_movij/utils/flame_const.dart';
+import 'package:flame/flame.dart';
 import 'package:flame/util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,7 +22,8 @@ void main() async {
   await flameUtil.setOrientation(DeviceOrientation.portraitUp);
 
   runApp(MyApp());
-  flameUtil.addGestureRecognizer(FlameConst.tapper);
+  // flameUtil.addGestureRecognizer(FlameConst.tapper);
+  Flame.audio.load('play.wav');
 
   FlameConst.miFlameUtil = flameUtil;
 }
