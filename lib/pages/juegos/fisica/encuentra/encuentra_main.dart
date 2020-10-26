@@ -10,40 +10,35 @@ import 'package:app_movij/pages/juegos/fisica/encuentra/spawner_encuentra.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/txtinfo_encontrar.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
+import 'package:flame/gestures.dart';
 import 'package:flutter/widgets.dart';
 
-// Constantes del juego  
-enum _EstadoJuego {
-  jugando,
-  perdio,
-  gano,
-  menu
-}
+// Constantes del juego
+enum _EstadoJuego { jugando, menu }
 
-class EncuentraMain extends Game  {
-
+class EncuentraMain extends Game with TapDetector {
   // Constantes
   final double maxSpeed = 250;
   final int maxPersonajes = 15;
-  // Lista de los personajes del juego  
+  // Lista de los personajes del juego
   static const List<String> IMG_PERSONAJES = [
     'Barco.png',
     'balon.png',
     'Nave.png'
   ];
-  // Lista de los iconos del feedback 
+  // Lista de los iconos del feedback
   static const List<String> IMG_FEEDBACK = [
     'emoticon/emoticon-sad.png',
     'emoticon/emoticon-smile.png'
   ];
-  // Para iniciar el numero de objetos a buscar primero  
+  // Para iniciar el numero de objetos a buscar primero
   final Random rand = Random();
-  // Para saber el objeto seleccionado para buscarlo 
+  // Para saber el objeto seleccionado para buscarlo
   final String personajeSelec;
-  // Contexto para poder salir del juego 
+  // Contexto para poder salir del juego
   final BuildContext context;
 
-  // Tamaño de la pantalla  
+  // Tamaño de la pantalla
   Size screenSize;
   double speed;
   int puntuacion;
@@ -51,16 +46,16 @@ class EncuentraMain extends Game  {
   _EstadoJuego estado;
   List<PersonajeEncuentra> personajes;
   // Pantallas del juego
-  TxtInformacionEncontrar txtInfo;  
+  TxtInformacionEncontrar txtInfo;
   MenuEncuentra menuJuego;
   BotonPausa botonPausa;
-  // Sprites para el feedback 
+  // Sprites para el feedback
   FeedbackGame sadSprite;
   FeedbackGame smileSprite;
-  // Spawner 
+  // Spawner
   SpawnerEncuentra spawnPersonajes;
 
-  EncuentraMain(this.context, this.personajeSelec){
+  EncuentraMain(this.context, this.personajeSelec) {
     initialize();
   }
 
@@ -71,14 +66,9 @@ class EncuentraMain extends Game  {
     menuJuego = MenuEncuentra(this);
     botonPausa = BotonPausa(this.screenSize);
     txtInfo = TxtInformacionEncontrar(this);
-    sadSprite = FeedbackGame(
-      em: this, 
-      iconName: 'emoticon/emoticon-sad.png'
-    );
-    smileSprite = FeedbackGame(
-      em: this, 
-      iconName: 'emoticon/emoticon-smile.png'
-    );
+    sadSprite = FeedbackGame(em: this, iconName: 'emoticon/emoticon-sad.png');
+    smileSprite =
+        FeedbackGame(em: this, iconName: 'emoticon/emoticon-smile.png');
     spawnPersonajes = SpawnerEncuentra(this, maxPersonajes);
     iniciarJuego();
   }
@@ -88,23 +78,19 @@ class EncuentraMain extends Game  {
     estado = _EstadoJuego.jugando;
     speed = 150;
     puntuacion = 0;
-    numEncontrar = rand.nextInt(25) + 10;  
+    numEncontrar = rand.nextInt(25) + 10;
     spawn();
   }
 
   @override
   void render(Canvas canvas) {
-    Rect backgroud = Rect.fromLTWH(
-      0, 0, 
-      screenSize.width, 
-      screenSize.height
-    );
+    Rect backgroud = Rect.fromLTWH(0, 0, screenSize.width, screenSize.height);
 
     Paint backPaint = Paint()..color = PRIMARY_COLOR;
     canvas.drawRect(backgroud, backPaint);
 
     botonPausa.render(canvas);
-    
+
     if (estado == _EstadoJuego.jugando) {
       personajes.forEach((p) {
         p.render(canvas);
@@ -118,7 +104,6 @@ class EncuentraMain extends Game  {
     if (estado == _EstadoJuego.menu) {
       menuJuego.render(canvas);
     }
-    
   }
 
   @override
@@ -144,7 +129,14 @@ class EncuentraMain extends Game  {
     screenSize = size;
   }
 
-  void onTapDowm(TapDownDetails td) {
+  @override
+  void onTapUp(TapUpDetails details) {
+    print(
+        "Player tap up on ${details.globalPosition.dx} - ${details.globalPosition.dy}");
+  }
+
+  @override
+  void onTapDown(TapDownDetails td) {
     if (estado == _EstadoJuego.jugando) {
       personajes.forEach((p) {
         if (p.personaje.contains(td.globalPosition)) {
@@ -153,7 +145,6 @@ class EncuentraMain extends Game  {
           if (puntuacion == numEncontrar) {
             estado = _EstadoJuego.menu;
           }
-
         }
       });
     }
@@ -163,7 +154,7 @@ class EncuentraMain extends Game  {
         estado = _EstadoJuego.jugando;
         botonPausa.jugar();
       } else {
-        estado = _EstadoJuego.menu;  
+        estado = _EstadoJuego.menu;
         botonPausa.pausar();
       }
     }
@@ -183,10 +174,9 @@ class EncuentraMain extends Game  {
     if (menuJuego.hitBoxNuevo.contains(td.globalPosition)) {
       iniciarJuego();
     }
-
   }
 
-  // Para el spawn 
+  // Para el spawn
 
   void spawn() {
     _spawnPersonaje();
@@ -197,10 +187,8 @@ class EncuentraMain extends Game  {
     int numPersonajesBuscar = rand.nextInt(2) + 1;
     for (var i = 0; i < numPersonajesBuscar; i++) {
       if (personajes.length < maxPersonajes) {
-        personajes.add(new PersonajeEncuentra(
-          this, true, personajeSelec
-        ));
-      }  
+        personajes.add(new PersonajeEncuentra(this, true, personajeSelec));
+      }
     }
   }
 
@@ -208,15 +196,13 @@ class EncuentraMain extends Game  {
     int numPersonajesBuscar = rand.nextInt(3) + 1;
     int numSpawneados = 0;
     String personaje = '';
-    while(numSpawneados < numPersonajesBuscar) {
+    while (numSpawneados < numPersonajesBuscar) {
       personaje = IMG_PERSONAJES[rand.nextInt(IMG_PERSONAJES.length)];
       if (personajes.length < maxPersonajes && personaje != personajeSelec) {
-        personajes.add(new PersonajeEncuentra(
-          this, false, personaje
-        ));  
+        personajes.add(new PersonajeEncuentra(this, false, personaje));
         numSpawneados++;
       }
-      // Esto es para que no ocurra el bug de que no spawneo todo y se quede ejecutando para siempre este while y nos mate el game 
+      // Esto es para que no ocurra el bug de que no spawneo todo y se quede ejecutando para siempre este while y nos mate el game
       if (personajes.length >= maxPersonajes) {
         numSpawneados = personajes.length;
       }
@@ -228,5 +214,4 @@ class EncuentraMain extends Game  {
     super.onDetach();
     Flame.images.clearCache();
   }
-
 }

@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
+import 'package:flame/gestures.dart';
 import 'package:flutter/gestures.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,7 +17,7 @@ import 'components/start_button.dart';
 import 'enemy_spawner.dart';
 import 'state.dart';
 
-class GameController extends Game {
+class GameController extends Game with TapDetector {
   // Para obtener el score guardado 
   final SharedPreferences store;
   // Para generar numeros random  
@@ -103,6 +104,7 @@ class GameController extends Game {
     tileSize = screenSize.width / 10;
   }
 
+  @override
   void onTapDown(TapDownDetails td) {
     if (state == State.menu) {
       state = State.playing;
@@ -113,6 +115,11 @@ class GameController extends Game {
         }
       });
     }
+  }
+
+  @override
+  void onTapUp(TapUpDetails details) {
+    print("Player tap up on ${details.globalPosition.dx} - ${details.globalPosition.dy}");
   }
 
   void spawnEnemy() {
