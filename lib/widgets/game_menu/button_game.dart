@@ -2,7 +2,7 @@ import 'package:app_movij/models/button_game_model.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 
-class ButtonGame extends StatelessWidget {
+class ButtonGame extends StatefulWidget {
   final ButtonGameModel model;
   const ButtonGame({
     Key key,
@@ -10,17 +10,61 @@ class ButtonGame extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _ButtonGameState createState() => _ButtonGameState();
+}
+
+class _ButtonGameState extends State<ButtonGame> with TickerProviderStateMixin {
+  AnimationController controller;
+  Animation<Offset> animation;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1500),
+    );
+    final curve = CurvedAnimation(curve: Curves.decelerate, parent: controller);
+
+    animation = Tween<Offset>(
+      begin: widget.model.animationStart,
+      end: Offset.zero,
+    ).animate(curve);
+
+    controller.forward();
+  }
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () async {
-        await Flame.audio.play('play.wav', volume: 0.15);
-        if (model.haveRoute) {
-          Navigator.of(context).pushNamed(model.page);
-        } else {
-          model.onTap(context);
-        }
+      onTap: () {
+        controller.reverse();
+        Flame.audio.play('play.wav', volume: 0.15);
+        Future.delayed(const Duration(milliseconds: 500), () {
+          if (widget.model.haveRoute) {
+            Navigator.of(context).pushNamed(widget.model.page);
+          } else {
+            widget.model.onTap(context);
+          }
+        });
+        // Volvemos a la posicion inicial en bg
+        Future.delayed(const Duration(milliseconds: 700), () {
+          controller.forward();
+        });
       },
-      child: _getButton(),
+      child: FadeTransition(
+        opacity: controller,
+        child: SlideTransition(
+          position: animation,
+          child: _getButton(),
+        ),
+      ),
     );
   }
 
@@ -61,13 +105,13 @@ class ButtonGame extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border(
           left: BorderSide(
-            color: model.color,
+            color: widget.model.color,
             width: 5,
           ),
         ),
       ),
       child: Text(
-        model.juego,
+        widget.model.juego,
         textAlign: TextAlign.left,
         style: TextStyle(
           color: Color(0xFF323639),
@@ -82,9 +126,11 @@ class ButtonGame extends StatelessWidget {
   Row _getBottom() {
     return Row(
       children: [
-        ..._getIcon(Icons.calendar_today, ' 10-20-2019 10:20:12'),
+        ..._getIcon(
+            Icons.calendar_today, ' ${widget.model.register?.labelLastPlay}'),
         Spacer(),
-        ..._getIcon(Icons.developer_board, ' 4 Ganados'),
+        ..._getIcon(
+            Icons.developer_board, ' ${widget.model.register?.labelWins}'),
       ],
     );
   }

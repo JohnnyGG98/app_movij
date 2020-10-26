@@ -1,6 +1,6 @@
 import 'package:app_movij/models/button_game_model.dart';
-import 'package:app_movij/pages/menu/juegos/button_game.dart';
 import 'package:app_movij/pages/menu/juegos/head_list_game.dart';
+import 'package:app_movij/widgets/game_menu/button_game.dart';
 import 'package:flutter/material.dart';
 
 class JuegosTFPage extends StatelessWidget {
