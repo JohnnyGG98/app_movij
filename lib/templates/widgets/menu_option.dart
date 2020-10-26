@@ -1,4 +1,6 @@
 import 'package:app_movij/models/button_menu_model.dart';
+import 'package:app_movij/utils/global.dart';
+import 'package:app_movij/utils/transitions.dart';
 import 'package:flutter/material.dart';
 
 class MenuOption extends StatelessWidget {
@@ -11,7 +13,7 @@ class MenuOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String route = ModalRoute.of(context).settings.name;
+    final String route = Global().actualRoute;
     final bool isActualPage = route == model.page;
 
     return GestureDetector(
@@ -60,11 +62,11 @@ class MenuOption extends StatelessWidget {
         ),
       ),
       onTap: () {
+        Global().actualRoute = model.page;
         // Si es la pagina actual solo hacemos un pop
-        if (isActualPage) {
-          Navigator.of(context).pop();
-        } else {
-          Navigator.of(context).pushReplacementNamed(model.page);
+        Navigator.of(context).pop();
+        if (!isActualPage) {
+          Navigator.push(context, DefaultFadeTransition(child: model.widget));
         }
       },
     );

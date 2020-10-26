@@ -28,8 +28,14 @@ class _HomePlayButtonState extends State<HomePlayButton>
       duration: Duration(milliseconds: 900),
     )..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
-          Navigator.push(context, DefaultFadeTransition(child: SeleccionarPerfilPage()));
-          scaleController.reset();
+          Navigator.push(
+            context,
+            DefaultFadeTransition(child: SeleccionarPerfilPage()),
+          );
+
+          Future.delayed(Duration(milliseconds: 300), () {
+            scaleController.reset();
+          });
         }
       });
 
@@ -111,5 +117,4 @@ class _HomePlayButtonState extends State<HomePlayButton>
       ),
     );
   }
-
 }

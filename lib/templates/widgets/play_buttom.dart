@@ -1,5 +1,4 @@
 import 'package:app_movij/C/colors.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 

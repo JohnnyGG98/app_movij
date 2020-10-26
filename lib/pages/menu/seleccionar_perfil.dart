@@ -1,11 +1,16 @@
+import 'package:app_movij/pages/menu/juegos/menu_juego.dart';
 import 'package:app_movij/templates/menu_lateral.dart';
 import 'package:app_movij/templates/widgets/responsive.dart';
+import 'package:app_movij/utils/global.dart';
+import 'package:app_movij/utils/transitions.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 
 class SeleccionarPerfilPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Global().actualRoute = 'seleccionarPerfil';
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Seleccionar Perfil'),
@@ -49,7 +54,7 @@ class _PerfilButton extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         await Flame.audio.play('play.wav', volume: 0.15);
-        Navigator.of(context).pushNamed('menuJuego');
+        Navigator.push(context, DefaultFadeTransition(child: MenuJuegoPage()));
       },
       child: Container(
         decoration: BoxDecoration(
@@ -107,18 +112,10 @@ class _PerfilButton extends StatelessWidget {
 
 // Data
 List perfiles = [
-  'JOHNNY GARCIA GARCIA',
-  'GUSTAVO INGA',
-  'EDISSON',
-  'ALEXANDER',
-  'DENNIS',
-  'EVELIN',
-  'CARLOS',
-  'JOHNNY GARCIA',
-  'GUSTAVO',
-  'EDISSON',
-  'ALEXANDER',
-  'DENNIS',
-  'EVELIN',
-  'CARLOS'
+  'TAGUZ',
+  'DESTROC',
+  'KEIDECHIN',
+  'AOKIN',
+  'XXYOXX',
+  'LLIVIO'
 ];

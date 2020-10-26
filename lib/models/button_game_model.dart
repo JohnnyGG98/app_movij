@@ -1,5 +1,5 @@
 import 'package:app_movij/game_ctr.dart';
-import 'package:app_movij/utils/flame_const.dart';
+import 'package:app_movij/utils/transitions.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -37,10 +37,9 @@ List<ButtonGameModel> buttonsTF = [
     page: '',
     onTap: (BuildContext context) async {
       // La puntuacion mas alta guardada
-        SharedPreferences store = await SharedPreferences.getInstance();
-        GameController gc = new GameController(store);
-        FlameConst.tapper.onTapDown = gc.onTapDown;
-        Navigator.pushNamed(context, 'jugar', arguments: gc.widget);
+      SharedPreferences store = await SharedPreferences.getInstance();
+      GameController gc = new GameController(store);
+      Navigator.push(context, DefaultFadeTransition(child: gc.widget));
     }
   ),
   ButtonGameModel(

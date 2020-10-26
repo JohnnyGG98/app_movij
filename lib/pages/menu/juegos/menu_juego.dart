@@ -2,6 +2,7 @@ import 'package:app_movij/C/colors.dart';
 import 'package:app_movij/pages/menu/juegos/menu_juego_tablet.dart';
 import 'package:app_movij/templates/menu_lateral.dart';
 import 'package:app_movij/templates/widgets/responsive.dart';
+import 'package:app_movij/utils/global.dart';
 import 'package:flutter/material.dart';
 
 import 'juegos_tf.dart';
@@ -10,6 +11,8 @@ import 'juegos_tl.dart';
 class MenuJuegoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Global().actualRoute = 'menuJuego';
+    
     return Responsive(
       mobile: MenuJuegoMobile(),
       tablet: MenuJuegoTablet(),

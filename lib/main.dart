@@ -22,7 +22,6 @@ void main() async {
   await flameUtil.setOrientation(DeviceOrientation.portraitUp);
 
   runApp(MyApp());
-  // flameUtil.addGestureRecognizer(FlameConst.tapper);
   Flame.audio.load('play.wav');
 
   FlameConst.miFlameUtil = flameUtil;

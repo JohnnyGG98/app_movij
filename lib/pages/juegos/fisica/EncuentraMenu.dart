@@ -3,7 +3,7 @@ import 'package:app_movij/pages/juegos/fisica/encuentra/encuentra_main.dart';
 import 'package:app_movij/templates/btn_juego.dart';
 import 'package:app_movij/templates/menu_lateral.dart';
 import 'package:app_movij/templates/widgets/widget_informacion_juego.dart';
-import 'package:app_movij/utils/flame_const.dart';
+import 'package:app_movij/utils/transitions.dart';
 import 'package:flutter/material.dart';
 
 class MenuEncuentraPage extends StatelessWidget {
@@ -47,8 +47,7 @@ class __PersonasEncuentraState extends State<_PersonasEncuentra> {
         _imgPath != ''
             ? getPlayButtom(() {
                 EncuentraMain em = new EncuentraMain(context, _nombrePersonaje);
-                FlameConst.tapper.onTapDown = em.onTapDowm;
-                Navigator.pushNamed(context, 'jugar', arguments: em.widget);
+                Navigator.push(context, DefaultFadeTransition(child: em.widget));
               })
             : Container(),
         SizedBox(height: 40),
