@@ -1,4 +1,5 @@
 import 'package:app_movij/models/button_game_model.dart';
+import 'package:app_movij/utils/transitions.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +23,7 @@ class _ButtonGameState extends State<ButtonGame> with TickerProviderStateMixin {
     super.initState();
     controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1500),
+      duration: const Duration(milliseconds: 1000),
     );
     final curve = CurvedAnimation(curve: Curves.decelerate, parent: controller);
 
@@ -46,15 +47,15 @@ class _ButtonGameState extends State<ButtonGame> with TickerProviderStateMixin {
       onTap: () {
         controller.reverse();
         Flame.audio.play('play.wav', volume: 0.15);
-        Future.delayed(const Duration(milliseconds: 500), () {
-          if (widget.model.haveRoute) {
-            Navigator.of(context).pushNamed(widget.model.page);
+        Future.delayed(const Duration(milliseconds: 350), () {
+          if (widget.model.child != null) {
+            Navigator.push(context, DefaultFadeTransition(child: widget.model.child));
           } else {
             widget.model.onTap(context);
           }
         });
         // Volvemos a la posicion inicial en bg
-        Future.delayed(const Duration(milliseconds: 700), () {
+        Future.delayed(const Duration(milliseconds: 500), () {
           controller.forward();
         });
       },

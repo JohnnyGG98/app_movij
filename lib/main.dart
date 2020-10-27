@@ -1,11 +1,6 @@
 import 'package:app_movij/pages/home.dart';
-import 'package:app_movij/pages/juegos/fisica/ClasificaMenu.dart';
-import 'package:app_movij/pages/juegos/fisica/EncuentraMenu.dart';
-import 'package:app_movij/pages/juegos/fisica/OrdenaMenu.dart';
 import 'package:app_movij/pages/juegos/lenguaje/LamparaPage.dart';
 import 'package:app_movij/pages/juegos/lenguaje/TiempoMenu.dart';
-import 'package:app_movij/pages/menu/juegos/menu_juego.dart';
-import 'package:app_movij/pages/menu/seleccionar_perfil.dart';
 import 'package:app_movij/components/add_game.dart';
 import 'package:app_movij/utils/flame_const.dart';
 import 'package:flame/flame.dart';
@@ -36,14 +31,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (BuildContext ct) => HomePage(),
-        'seleccionarPerfil': (BuildContext ct) => SeleccionarPerfilPage(),
-        'menuJuego': (BuildContext ct) => MenuJuegoPage(),
-
         // Juegos
-        'juego/tf/encuentra': (BuildContext ct) => MenuEncuentraPage(),
-        'juego/tf/ordena': (BuildContext ct) => MenuOrdenaPage(),
-        'juego/tf/clasifica': (BuildContext ct) => MenuClasificaPage(),
-
         'juego/tl/tiempo': (BuildContext ct) => MenuTiempoPage(),
         'juego/tl/luz': (BuildContext ct) => LamparaPage(),
 

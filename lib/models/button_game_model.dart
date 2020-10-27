@@ -1,5 +1,8 @@
 import 'package:app_movij/game_ctr.dart';
 import 'package:app_movij/models/game_register_model.dart';
+import 'package:app_movij/pages/juegos/fisica/ClasificaMenu.dart';
+import 'package:app_movij/pages/juegos/fisica/EncuentraMenu.dart';
+import 'package:app_movij/pages/juegos/fisica/OrdenaMenu.dart';
 import 'package:app_movij/utils/transitions.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,12 +14,14 @@ class ButtonGameModel {
   Offset animationStart;
   Function(BuildContext context) onTap;
   GameRegisterModel register;
+  Widget child;
 
   ButtonGameModel({
     @required this.juego,
     @required this.color,
     @required this.page,
     @required this.animationStart,
+    this.child,
     this.onTap,
     this.register,
   });
@@ -37,6 +42,7 @@ List<ButtonGameModel> buttonsTF = [
     page: 'juego/tf/encuentra',
     animationStart: Offset(40, 40),
     register: GameRegisterModel(lastPlay: DateTime.now(), totalWins: 1),
+    child: MenuEncuentraPage(),
   ),
   ButtonGameModel(
     color: Colors.orange.withOpacity(0.4),
@@ -57,6 +63,7 @@ List<ButtonGameModel> buttonsTF = [
     page: 'juego/tf/ordena',
     animationStart: Offset(20, 20),
     register: GameRegisterModel(lastPlay: DateTime.now(), totalWins: 3),
+    child: MenuOrdenaPage(),
   ),
   ButtonGameModel(
     color: Colors.red.withOpacity(0.8),
@@ -64,5 +71,6 @@ List<ButtonGameModel> buttonsTF = [
     page: 'juego/tf/clasifica',
     animationStart: Offset(-40, -40),
     register: GameRegisterModel(),
+    child: MenuClasificaPage(),
   ),
 ];
