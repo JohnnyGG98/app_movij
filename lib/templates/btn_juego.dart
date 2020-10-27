@@ -1,4 +1,4 @@
-import 'package:app_movij/C/colors.dart';
+import 'package:app_movij/config/config_export.dart';
 import 'package:flutter/material.dart';
 
 Widget getBtnJuego(String text, Function navigate) {
@@ -9,7 +9,7 @@ Widget getBtnJuego(String text, Function navigate) {
         bottomRight: Radius.circular(50.0)
       )
     ),
-    color: ACCENT_COLOR,
+    color: AppThemeColors.GREEN,
     onPressed: (){navigate();},
     child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 25.0),
@@ -29,7 +29,7 @@ Widget getBtnPersonaje(String img, Function navigate) {
   return OutlineButton(
     shape: StadiumBorder(),
     onPressed: navigate,
-    borderSide: BorderSide(color: PRIMARY_COLOR, width: 3),
+    borderSide: BorderSide(color: AppThemeColors.BLUE, width: 3),
     child: Container(
       height: 150,
       width: 200,
@@ -44,7 +44,7 @@ Widget getBtnPersonaje(String img, Function navigate) {
 
 Widget getPlayButtom(Function action) {
   return FlatButton(
-    color: ACCENT_COLOR,
+    color: AppThemeColors.GREEN,
     onPressed: action,
     child: Text('JUGAR', 
       style: TextStyle(

@@ -1,4 +1,4 @@
-import 'package:app_movij/C/colors.dart';
+import 'package:app_movij/config/config_export.dart';
 import 'package:flutter/material.dart';
 
 import 'copy.dart';
@@ -56,7 +56,7 @@ class HomePainter extends CustomPainter {
 
     Path mainBackgroud = Path(); 
     mainBackgroud.addRect(Rect.fromLTRB(0, 0, width, heingt));
-    paint.color = PRIMARY_COLOR;
+    paint.color = AppThemeColors.BLUE;
     canvas.drawPath(mainBackgroud, paint); 
 
     Path triangulo = Path(); 
@@ -134,7 +134,7 @@ class PerfilPainter extends CustomPainter {
     ovalPath.lineTo(0, heingt);
 
     // paint.color =  PRIMARY_COLOR; 
-    paint.color =  PRIMARY_COLOR.withOpacity(0.86); 
+    paint.color =  AppThemeColors.GREEN.withOpacity(0.86); 
     canvas.drawPath(ovalPath, paint);
   }
 
@@ -158,7 +158,7 @@ Widget getFondoInfo() {
           ),
         ),
 
-        getCopy(PRIMARY_COLOR),
+        getCopy(AppThemeColors.GREEN),
       ],
     ),
   );

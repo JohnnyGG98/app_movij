@@ -22,7 +22,6 @@ class _AnimatedBottomBarState extends State<AnimatedBottomBar>
   @override
   Widget build(BuildContext context) {
     return Material(
-      // color: Color(0xFF34495E),
       elevation: 10.0,
       child: Padding(
         padding: const EdgeInsets.symmetric(

@@ -1,3 +1,4 @@
+import 'package:app_movij/config/config_export.dart';
 import 'package:app_movij/models/button_menu_model.dart';
 import 'package:app_movij/utils/global.dart';
 import 'package:app_movij/utils/transitions.dart';
@@ -27,7 +28,7 @@ class MenuOption extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border(
             right: BorderSide(
-              color: Color(0xFFECEBEB),
+              color: AppThemeColors.WHITE,
               width: 7.5,
             ),
           ),
@@ -36,13 +37,13 @@ class MenuOption extends StatelessWidget {
           children: [
             Icon(
               model.icon,
-              color: Color(0xFF34495E),
+              color: AppThemeColors.BLUE,
             ),
             SizedBox(width: 10),
             Text(
               model.label,
               style: TextStyle(
-                color: Color(0xFF34495E),
+                color: AppThemeColors.BLUE,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
@@ -53,7 +54,7 @@ class MenuOption extends StatelessWidget {
                 width: 15,
                 height: 15,
                 decoration: BoxDecoration(
-                  color: Color(0xFF34495E),
+                  color: AppThemeColors.BLUE,
                   shape: BoxShape.circle,
                 ),
               ),

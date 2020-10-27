@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:app_movij/C/colors.dart';
+import 'package:app_movij/config/config_export.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/personaje_encuentra.dart';
 import 'package:app_movij/templates/widgets/widget_victoria.dart';
 import 'package:app_movij/utils/speak.dart';
@@ -72,7 +72,7 @@ class _OrdenaMainPageState extends State<OrdenaMainPage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.check),
         onPressed: _mostrarVictoria ? _newGame : null,
-        backgroundColor: _mostrarVictoria ? ACCENT_COLOR : Colors.black45,
+        backgroundColor: _mostrarVictoria ? AppThemeColors.GREEN : Colors.black45,
       ),
 
       body: _mostrarVictoria ? VictoriaJuego('Edisson') : Column(

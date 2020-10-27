@@ -1,4 +1,4 @@
-import 'package:app_movij/C/colors.dart';
+import 'package:app_movij/config/config_export.dart';
 import 'package:app_movij/pages/menu/seleccionar_perfil.dart';
 import 'package:app_movij/utils/transitions.dart';
 import 'package:flame/flame.dart';
@@ -87,7 +87,7 @@ class _HomePlayButtonState extends State<HomePlayButton>
           child: Container(
             margin: EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: ACCENT_COLOR,
+              color: AppThemeColors.GREEN,
               borderRadius: BorderRadius.circular(15),
             ),
             child: AnimatedBuilder(
@@ -98,7 +98,7 @@ class _HomePlayButtonState extends State<HomePlayButton>
                   horizontal: bouncedAnimation.value,
                 ),
                 decoration: BoxDecoration(
-                  color: ACCENT_COLOR.withOpacity(0.75),
+                  color: AppThemeColors.GREEN.withOpacity(0.75),
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Text(

@@ -1,3 +1,4 @@
+import 'package:app_movij/config/config_export.dart';
 import 'package:app_movij/pages/home.dart';
 import 'package:app_movij/pages/juegos/lenguaje/LamparaPage.dart';
 import 'package:app_movij/pages/juegos/lenguaje/TiempoMenu.dart';
@@ -11,7 +12,7 @@ import 'package:flutter/services.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Color(0xFF092234),
+    statusBarColor: AppThemeColors.BLUE_DARK,
   ));
   Util flameUtil = Util();
   await flameUtil.setOrientation(DeviceOrientation.portraitUp);
@@ -39,8 +40,8 @@ class MyApp extends StatelessWidget {
         'jugar': (BuildContext ct) => AddGame()
       },
       theme: ThemeData(
-        primaryColor: Color.fromRGBO(52, 73, 94, 1.0),
-        accentColor: Color.fromRGBO(39, 174, 96, 1.0),
+        primaryColor: AppThemeColors.BLUE,
+        accentColor: AppThemeColors.GREEN,
       ),
     );
   }

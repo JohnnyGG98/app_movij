@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:app_movij/C/colors.dart';
+import 'package:app_movij/config/config_export.dart';
 import 'package:app_movij/pages/juegos/fisica/clasifica/const_clasifica.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/personaje_encuentra.dart';
 import 'package:app_movij/templates/widgets/widget_victoria.dart';
@@ -99,7 +99,7 @@ class _ClasificaMainPageState extends State<ClasificaMainPage> {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                color: PRIMARY_COLOR,
+                color: AppThemeColors.BLUE,
                 borderRadius: BorderRadius.vertical(
                   top: Radius.circular(40)
                 )

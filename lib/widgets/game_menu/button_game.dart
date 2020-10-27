@@ -1,3 +1,4 @@
+import 'package:app_movij/config/config_export.dart';
 import 'package:app_movij/models/button_game_model.dart';
 import 'package:app_movij/utils/transitions.dart';
 import 'package:flame/flame.dart';
@@ -49,7 +50,8 @@ class _ButtonGameState extends State<ButtonGame> with TickerProviderStateMixin {
         Flame.audio.play('play.wav', volume: 0.15);
         Future.delayed(const Duration(milliseconds: 350), () {
           if (widget.model.child != null) {
-            Navigator.push(context, DefaultFadeTransition(child: widget.model.child));
+            Navigator.push(
+                context, DefaultFadeTransition(child: widget.model.child));
           } else {
             widget.model.onTap(context);
           }
@@ -73,7 +75,7 @@ class _ButtonGameState extends State<ButtonGame> with TickerProviderStateMixin {
     return Container(
       margin: EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
-        color: Color(0xFFECEBEB),
+        color: AppThemeColors.WHITE,
         borderRadius: BorderRadius.circular(10),
         boxShadow: <BoxShadow>[
           BoxShadow(
@@ -115,7 +117,7 @@ class _ButtonGameState extends State<ButtonGame> with TickerProviderStateMixin {
         widget.model.juego,
         textAlign: TextAlign.left,
         style: TextStyle(
-          color: Color(0xFF323639),
+          color: AppThemeColors.BLACK,
           fontWeight: FontWeight.w700,
           fontSize: 22,
           letterSpacing: 0.8,
@@ -141,13 +143,13 @@ class _ButtonGameState extends State<ButtonGame> with TickerProviderStateMixin {
       Icon(
         icon,
         size: 13,
-        color: Color(0xFF3C3E40),
+        color: AppThemeColors.BLACK_ICON,
       ),
       Text(
         label,
         style: TextStyle(
           fontSize: 13,
-          color: Color(0xFF3C3E40),
+          color: AppThemeColors.BLACK_ICON,
         ),
       )
     ];

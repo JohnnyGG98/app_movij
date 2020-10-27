@@ -1,4 +1,4 @@
-import 'package:app_movij/C/colors.dart';
+import 'package:app_movij/config/config_export.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 
@@ -44,7 +44,7 @@ class _PlayButtonState extends State<PlayButton>
     return Transform.scale(
       scale: scale,
       child: FlatButton(
-        color: ACCENT_COLOR,
+        color: AppThemeColors.GREEN,
         onPressed: () async {
           _controller.forward();
           await Flame.audio.play('play.wav', volume: 0.25);

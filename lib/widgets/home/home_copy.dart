@@ -1,3 +1,4 @@
+import 'package:app_movij/config/config_export.dart';
 import 'package:flutter/material.dart';
 
 class HomeCopy extends StatelessWidget {
@@ -8,7 +9,7 @@ class HomeCopy extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(color: Colors.white),
         borderRadius: BorderRadius.circular(15),
-        color: Color(0xFF34495E),
+        color: AppThemeColors.BLUE,
         boxShadow: [
           BoxShadow(
             color: Colors.white,

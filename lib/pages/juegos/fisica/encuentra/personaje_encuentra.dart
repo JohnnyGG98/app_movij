@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'dart:ui';
-import 'package:app_movij/C/colors.dart';
+import 'package:app_movij/config/config_export.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/encuentra_main.dart';
 import 'package:flame/sprite.dart';
 
@@ -26,7 +26,7 @@ class PersonajeEncuentra {
   }
 
   void render(Canvas c) {
-    Paint color = Paint()..color = ACCENT_COLOR;
+    Paint color = Paint()..color = AppThemeColors.GREEN;
     if (img != '') {
       sprite.renderRect(c, personaje);
     } else {

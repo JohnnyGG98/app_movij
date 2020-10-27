@@ -1,4 +1,4 @@
-import 'package:app_movij/C/colors.dart';
+import 'package:app_movij/config/config_export.dart';
 import 'package:flutter/material.dart';
 
 class MenuJuegoMobile extends StatelessWidget {
@@ -21,7 +21,7 @@ class MenuJuegoMobile extends StatelessWidget {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                color: PRIMARY_COLOR,
+                color: AppThemeColors.BLUE,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(100.0),
                 ),
@@ -48,7 +48,7 @@ class MenuJuegoMobile extends StatelessWidget {
       child: Text(
         titulo + '  ',
         style: TextStyle(
-          color: ACCENT_COLOR,
+          color: AppThemeColors.GREEN,
           fontSize: 35.0,
           fontWeight: FontWeight.w400,
         ),

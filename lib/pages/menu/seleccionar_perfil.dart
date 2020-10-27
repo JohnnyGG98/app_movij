@@ -1,3 +1,4 @@
+import 'package:app_movij/config/config_export.dart';
 import 'package:app_movij/pages/menu/juegos/menu_juego.dart';
 import 'package:app_movij/templates/menu_lateral.dart';
 import 'package:app_movij/templates/widgets/responsive.dart';
@@ -58,7 +59,7 @@ class _PerfilButton extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(color: Color(0xFFECEBEB), width: 1.5),
+          border: Border.all(color: AppThemeColors.WHITE, width: 1.5),
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         child: Column(
@@ -72,7 +73,7 @@ class _PerfilButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100),
                 boxShadow: <BoxShadow>[
                   BoxShadow(
-                    color: Color(0xFFE7ECF6),
+                    color: AppThemeColors.WHITE_SHADOW,
                     spreadRadius: 2.5,
                     blurRadius: 2,
                     offset: Offset(-0.5, 1.5),
@@ -89,7 +90,7 @@ class _PerfilButton extends StatelessWidget {
               name,
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Color(0xFF323639),
+                color: AppThemeColors.BLACK,
               ),
             ),
             // Divider(),

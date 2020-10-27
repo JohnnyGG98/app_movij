@@ -1,3 +1,4 @@
+import 'package:app_movij/config/config_export.dart';
 import 'package:app_movij/models/button_menu_model.dart';
 import 'package:app_movij/templates/widgets/menu_bottom_button.dart';
 import 'package:app_movij/templates/widgets/menu_credits.dart';
@@ -57,7 +58,7 @@ class MenuLateral extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 10),
       padding: EdgeInsets.all(15),
       decoration: BoxDecoration(
-        color: Color(0xFF34495E),
+        color: AppThemeColors.BLUE,
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
       child: Row(
@@ -71,7 +72,7 @@ class MenuLateral extends StatelessWidget {
             ),
             child: Icon(
               Icons.person,
-              color: Color(0xFF34495E),
+              color: AppThemeColors.BLUE,
               size: 30,
             ),
           ),
@@ -91,9 +92,8 @@ class MenuLateral extends StatelessWidget {
 
   Widget _getSalirButton() {
     return MenuBottomButton(
-      // primary: Color(0xFFCB4041),
-      primary: Color(0xFF34495E),
-      shadow: Color(0xFFE75454),
+      primary: AppThemeColors.BLUE,
+      shadow: AppThemeColors.RED,
       label: 'Salir',
       onTap: () {},
     );
@@ -101,9 +101,8 @@ class MenuLateral extends StatelessWidget {
 
   Widget _getLoginButton() {
     return MenuBottomButton(
-      // primary: Color(0xFF00BE4C),
-      primary: Color(0xFF34495E),
-      shadow: Color(0xFF68CA87),
+      primary: AppThemeColors.BLUE,
+      shadow: AppThemeColors.GREEN,
       label: 'Login',
       onTap: () {},
     );

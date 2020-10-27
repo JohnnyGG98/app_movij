@@ -1,4 +1,3 @@
-import 'package:app_movij/C/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
@@ -36,7 +35,7 @@ class _InformacionJuegoState extends State<InformacionJuego> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: PADDING_VERTICAL,
+      padding: const EdgeInsets.symmetric(vertical: 15.0),
       child: ListTile(
         title: Text(widget.texto,
           style: TextStyle(

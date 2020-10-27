@@ -1,3 +1,4 @@
+import 'package:app_movij/config/config_export.dart';
 import 'package:flutter/material.dart';
 
 class HeadListGame extends StatelessWidget {
@@ -19,7 +20,7 @@ class HeadListGame extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 5),
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Color(0xFF34495E),
+            color: AppThemeColors.BLUE,
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(20),
               bottomRight: Radius.circular(20),
@@ -44,7 +45,7 @@ class HeadListGame extends StatelessWidget {
         horizontal: 25,
       ),
       decoration: BoxDecoration(
-        border: Border.all(color: Color(0xFFECEBEB), width: 2.5),
+        border: Border.all(color: AppThemeColors.WHITE, width: 2.5),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(25),
           topRight: Radius.circular(25),
@@ -62,7 +63,7 @@ class HeadListGame extends StatelessWidget {
         Container(
           padding: EdgeInsets.all(7.5),
           decoration: BoxDecoration(
-            color: Color(0xFF46B04A),
+            color: AppThemeColors.GREEN,
             shape: BoxShape.circle,
             boxShadow: <BoxShadow>[
               BoxShadow(
@@ -92,7 +93,7 @@ class HeadListGame extends StatelessWidget {
       style: TextStyle(
         fontWeight: FontWeight.w700,
         fontSize: 20,
-        color: Color(0xFF323639),
+        color: AppThemeColors.BLACK,
         letterSpacing: 1.1,
       ),
     );

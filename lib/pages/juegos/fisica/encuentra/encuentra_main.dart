@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:app_movij/C/colors.dart';
+import 'package:app_movij/config/config_export.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/boton_pausa.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/feedback_game.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/menu_encuentra.dart';
@@ -86,7 +86,7 @@ class EncuentraMain extends Game with TapDetector {
   void render(Canvas canvas) {
     Rect backgroud = Rect.fromLTWH(0, 0, screenSize.width, screenSize.height);
 
-    Paint backPaint = Paint()..color = PRIMARY_COLOR;
+    Paint backPaint = Paint()..color = AppThemeColors.BLUE;
     canvas.drawRect(backgroud, backPaint);
 
     botonPausa.render(canvas);

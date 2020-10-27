@@ -1,4 +1,4 @@
-import 'package:app_movij/C/colors.dart';
+import 'package:app_movij/config/config_export.dart';
 import 'package:flutter/material.dart';
 
 class AddGame extends StatelessWidget {
@@ -10,7 +10,7 @@ class AddGame extends StatelessWidget {
       return gameWidget;
     } else {
       return Container(
-        color: PRIMARY_COLOR,
+        color: AppThemeColors.BLUE,
         child: Center(
           child: Text('No tenemos un juego...'),
         ),

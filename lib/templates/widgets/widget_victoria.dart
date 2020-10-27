@@ -1,4 +1,3 @@
-import 'package:app_movij/C/cons.dart';
 import 'package:app_movij/templates/widgets/responsive.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flame/flame.dart';
@@ -88,7 +87,7 @@ class _BaileVictoria extends StatelessWidget {
                 fontSize: 20.0,
                 letterSpacing: 3,
                 fontWeight: FontWeight.w500,
-                fontFamily: FONT_FAMILY_CONSOLA,
+                fontFamily: 'PressStart2P',
               ),
               textAlign: TextAlign.center,
             ),
