@@ -3,6 +3,8 @@ import 'package:app_movij/models/game_register_model.dart';
 import 'package:app_movij/pages/juegos/fisica/ClasificaMenu.dart';
 import 'package:app_movij/pages/juegos/fisica/EncuentraMenu.dart';
 import 'package:app_movij/pages/juegos/fisica/OrdenaMenu.dart';
+import 'package:app_movij/pages/juegos/lenguaje/LamparaPage.dart';
+import 'package:app_movij/pages/juegos/lenguaje/TiempoMenu.dart';
 import 'package:app_movij/utils/transitions.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,8 +21,8 @@ class ButtonGameModel {
   ButtonGameModel({
     @required this.juego,
     @required this.color,
-    @required this.page,
     @required this.animationStart,
+    this.page = '',
     this.child,
     this.onTap,
     this.register,
@@ -74,3 +76,41 @@ List<ButtonGameModel> buttonsTF = [
     child: MenuClasificaPage(),
   ),
 ];
+
+// Juegos de terapias de lenguaje 
+
+List<ButtonGameModel> buttonsTL = [
+  ButtonGameModel(
+    color: Colors.blue.withOpacity(0.4),
+    juego: 'Tiempo',
+    animationStart: Offset(40, 40),
+    register: GameRegisterModel(lastPlay: DateTime.now(), totalWins: 0),
+    child: MenuTiempoPage(),
+  ),
+  ButtonGameModel(
+    color: Colors.cyan.withOpacity(0.4),
+    juego: 'Luz',
+    animationStart: Offset(-20, -20),
+    register: GameRegisterModel(lastPlay: DateTime.now(), totalWins: 7),
+    child: LamparaPage(),
+  ),
+  ButtonGameModel(
+    color: Colors.indigo.withOpacity(0.7),
+    juego: 'Hora',
+    animationStart: Offset(20, 20),
+    register: GameRegisterModel(),
+  ),
+  ButtonGameModel(
+    color: Colors.yellowAccent.withOpacity(0.8),
+    juego: 'Cantidad',
+    animationStart: Offset(-40, -40),
+    register: GameRegisterModel(),
+  ),
+  ButtonGameModel(
+    color: Colors.pinkAccent.withOpacity(0.8),
+    juego: 'Pictogramas',
+    animationStart: Offset(40, 40),
+    register: GameRegisterModel(),
+  ),
+];
+
