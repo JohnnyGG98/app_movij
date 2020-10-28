@@ -1,28 +1,27 @@
 import 'package:app_movij/config/config_export.dart';
 import 'package:app_movij/models/button_menu_model.dart';
-import 'package:app_movij/templates/widgets/menu_bottom_button.dart';
-import 'package:app_movij/templates/widgets/menu_credits.dart';
-import 'package:app_movij/templates/widgets/menu_option.dart';
+import 'package:app_movij/models/user_model.dart';
+import 'package:app_movij/utils/global.dart';
 import 'package:flutter/material.dart';
+import 'package:app_movij/widgets/menu/menu_export.dart';
 
 class MenuLateral extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: Funcion para comprobar que el usuario este loguead
-    final isLoged = false;
+    final isLoged = Global().isLoged;
     return Drawer(
       child: Column(
         children: [
           Expanded(
-            child: _getBody(),
+            child: _getBody(isLoged),
           ),
-          isLoged ? _getSalirButton() : _getLoginButton(),
+          isLoged ? _getSalirButton(context) : _getLoginButton(),
         ],
       ),
     );
   }
 
-  Widget _getBody() {
+  Widget _getBody(bool isLoged) {
     return Container(
       padding: EdgeInsets.symmetric(
         vertical: 10,
@@ -32,7 +31,7 @@ class MenuLateral extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SafeArea(
-            child: _getUser(),
+            child: isLoged ? _getUser(Global().user) : Container(),
           ),
           SizedBox(height: 10),
           Expanded(
@@ -53,7 +52,7 @@ class MenuLateral extends StatelessWidget {
     );
   }
 
-  Widget _getUser() {
+  Widget _getUser(UserModel user) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       padding: EdgeInsets.all(15),
@@ -77,7 +76,7 @@ class MenuLateral extends StatelessWidget {
             ),
           ),
           Text(
-            'Johnny Garcia'.toUpperCase(),
+            user.username.toUpperCase(),
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w700,
@@ -90,12 +89,17 @@ class MenuLateral extends StatelessWidget {
     );
   }
 
-  Widget _getSalirButton() {
+  Widget _getSalirButton(BuildContext context) {
     return MenuBottomButton(
       primary: AppThemeColors.BLUE,
       shadow: AppThemeColors.RED,
       label: 'Salir',
-      onTap: () {},
+      onTap: () {
+        print('Salimos');
+        // Eliminar el usuario logueado
+        Global().user = null;
+        Navigator.of(context).pushReplacementNamed('/');
+      },
     );
   }
 

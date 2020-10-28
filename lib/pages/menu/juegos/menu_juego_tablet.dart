@@ -1,6 +1,6 @@
 import 'package:app_movij/pages/menu/juegos/juegos_tf.dart';
 import 'package:app_movij/pages/menu/juegos/juegos_tl.dart';
-import 'package:app_movij/templates/menu_lateral.dart';
+import 'package:app_movij/widgets/menu/menu_lateral.dart';
 import 'package:flutter/material.dart';
 
 class MenuJuegoTablet extends StatelessWidget {

@@ -1,9 +1,9 @@
 import 'package:app_movij/animated/personaje_preview.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/encuentra_main.dart';
 import 'package:app_movij/templates/btn_juego.dart';
-import 'package:app_movij/templates/menu_lateral.dart';
 import 'package:app_movij/templates/widgets/widget_informacion_juego.dart';
 import 'package:app_movij/utils/transitions.dart';
+import 'package:app_movij/widgets/menu/menu_lateral.dart';
 import 'package:flutter/material.dart';
 
 class MenuEncuentraPage extends StatelessWidget {

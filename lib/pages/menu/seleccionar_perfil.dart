@@ -1,9 +1,11 @@
 import 'package:app_movij/config/config_export.dart';
+import 'package:app_movij/helpers/Helpers.dart';
+import 'package:app_movij/models/user_model.dart';
 import 'package:app_movij/pages/menu/juegos/menu_juego.dart';
-import 'package:app_movij/templates/menu_lateral.dart';
 import 'package:app_movij/templates/widgets/responsive.dart';
 import 'package:app_movij/utils/global.dart';
 import 'package:app_movij/utils/transitions.dart';
+import 'package:app_movij/widgets/menu/menu_lateral.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +26,7 @@ class SeleccionarPerfilPage extends StatelessWidget {
   }
 
   _getPerfiles(BuildContext context) {
+    List<UserModel> list = Helpers.getRandomList(defaultUsers);
     return GridView.builder(
       physics: BouncingScrollPhysics(),
       padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 15.0),
@@ -32,20 +35,20 @@ class SeleccionarPerfilPage extends StatelessWidget {
         crossAxisSpacing: 40,
         mainAxisSpacing: 30,
       ),
-      itemCount: perfiles.length,
+      itemCount: list.length,
       itemBuilder: (BuildContext context, int i) {
-        return _PerfilButton(name: perfiles[i]);
+        return _PerfilButton(user: list[i]);
       },
     );
   }
 }
 
 class _PerfilButton extends StatelessWidget {
-  final String name;
+  final UserModel user;
 
   const _PerfilButton({
     Key key,
-    @required this.name,
+    @required this.user,
   }) : super(key: key);
 
   @override
@@ -53,9 +56,10 @@ class _PerfilButton extends StatelessWidget {
     double size = _sizeImage(context);
 
     return GestureDetector(
-      onTap: () async {
-        await Flame.audio.play('play.wav', volume: 0.15);
+      onTap: () {
+        Flame.audio.play('play.wav', volume: 0.15);
         Navigator.push(context, DefaultFadeTransition(child: MenuJuegoPage()));
+        Global().user = user;
       },
       child: Container(
         decoration: BoxDecoration(
@@ -80,14 +84,16 @@ class _PerfilButton extends StatelessWidget {
                   )
                 ],
                 image: DecorationImage(
-                  image: AssetImage('assets/app/pocoyo_bg.jpg'),
+                  image: user.isNetworkImage
+                      ? NetworkImage(user.image)
+                      : AssetImage(user.image),
                   fit: BoxFit.contain,
                 ),
               ),
             ),
             SizedBox(height: 7.5),
             Text(
-              name,
+              user.username,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: AppThemeColors.BLACK,
@@ -110,13 +116,3 @@ class _PerfilButton extends StatelessWidget {
     }
   }
 }
-
-// Data
-List perfiles = [
-  'TAGUZ',
-  'DESTROC',
-  'KEIDECHIN',
-  'AOKIN',
-  'XXYOXX',
-  'LLIVIO'
-];
