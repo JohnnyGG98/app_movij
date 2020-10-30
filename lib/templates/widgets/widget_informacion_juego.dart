@@ -14,7 +14,7 @@ class _InformacionJuegoState extends State<InformacionJuego> {
   bool _infoActivo = false; 
 
   // Para leer el texto  
-  final FlutterTts _ftts = FlutterTts(); 
+  final FlutterTts _ftts = FlutterTts();
   
   @override
   void initState() {

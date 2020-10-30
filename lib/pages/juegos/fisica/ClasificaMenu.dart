@@ -1,8 +1,7 @@
-import 'package:app_movij/animated/personaje_preview.dart';
 import 'package:app_movij/pages/juegos/fisica/clasifica/clasifica_main.dart';
-import 'package:app_movij/templates/btn_juego.dart';
-import 'package:app_movij/templates/widgets/widget_informacion_juego.dart';
-import 'package:app_movij/widgets/menu/menu_lateral.dart';
+import 'package:app_movij/widgets/game_menu/container_game.dart';
+import 'package:app_movij/widgets/game_menu/page_game.dart';
+import 'package:app_movij/widgets/game_menu/personaje_game.dart';
 import 'package:flutter/material.dart';
 
 import 'clasifica/const_clasifica.dart';
@@ -10,20 +9,12 @@ import 'clasifica/const_clasifica.dart';
 class MenuClasificaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Clasifica'),
-      ),
-      drawer: MenuLateral(),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          InformacionJuego(
-            'Se debe clasificar los objetos, con el color o su categoría correspondiente.\n\nSeleccionar categoría:',
-          ),
-          _CategoriaClasifica(),
-        ],
-      ),
+    return PageGame(
+      title: 'Clasifica',
+      text:
+          'Se debe clasificar los objetos, con el color o su categoría correspondiente',
+      label: 'Seleccionar categoría:',
+      child: _CategoriaClasifica(),
     );
   }
 }
@@ -43,31 +34,12 @@ class __CategoriaClasificaState extends State<_CategoriaClasifica> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Container(
-          height: 150.0,
-          child: _menu(),
-        ),
-        SizedBox(height: 20),
-        _imgPath != '' && _categoria != ''
-            ? getPlayButtom(() {
-                _initJugar(context);
-              })
-            : Container(),
-        SizedBox(height: 20),
-        _nombreCategoria != '' ? Text(_nombreCategoria) : Container(),
-        SizedBox(height: 40),
-        _imgPath != '' ? PersonaPreview(_imgPath) : Container(),
-      ],
-    );
-  }
-
-  Widget _menu() {
-    return ListView(
-      physics: BouncingScrollPhysics(),
-      scrollDirection: Axis.horizontal,
-      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+    return ContainerGame(
+      label: _nombreCategoria,
+      image: _imgPath,
+      callback: () {
+        _initJugar(context);
+      },
       children: _getCategorias(),
     );
   }
@@ -79,25 +51,31 @@ class __CategoriaClasificaState extends State<_CategoriaClasifica> {
     List<Widget> widgets = new List();
 
     for (var i = 0; i < _categorias.length; i++) {
-      widgets.add(getBtnPersonaje(_categorias[i].imgPath, () {
-        setState(() {
-          _imgPath = _categorias[i].imgPath;
-          _categoria = _categorias[i].categoria;
-          _nombreCategoria = 'Clasificar $_categoria';
-        });
-      }));
-      widgets.add(SizedBox(width: 40));
+      widgets.add(PersonajeGame(
+        img: _categorias[i].imgPath,
+        onTap: () {
+          setState(() {
+            _imgPath = _categorias[i].imgPath;
+            _categoria = _categorias[i].categoria;
+            _nombreCategoria = 'Clasificar $_categoria';
+          });
+        },
+      ));
+      widgets.add(SizedBox(width: 20));
     }
 
     ClasificaJuego todos = _lc.getRandomPathAll();
 
-    widgets.add(getBtnPersonaje(todos.imgPath, () {
-      setState(() {
-        _imgPath = todos.imgPath;
-        _categoria = 'Todos';
-        _nombreCategoria = 'Clasificar $_categoria';
-      });
-    }));
+    widgets.add(PersonajeGame(
+      img: todos.imgPath,
+      onTap: () {
+        setState(() {
+          _imgPath = todos.imgPath;
+          _categoria = 'Todos';
+          _nombreCategoria = 'Clasificar $_categoria';
+        });
+      },
+    ));
     return widgets;
   }
 

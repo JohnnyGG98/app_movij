@@ -4,6 +4,7 @@ import 'package:app_movij/pages/juegos/lenguaje/LamparaPage.dart';
 import 'package:app_movij/pages/juegos/lenguaje/TiempoMenu.dart';
 import 'package:app_movij/components/add_game.dart';
 import 'package:app_movij/utils/flame_const.dart';
+import 'package:app_movij/utils/global.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/util.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +19,8 @@ void main() async {
   await flameUtil.setOrientation(DeviceOrientation.portraitUp);
 
   runApp(MyApp());
+  Global().initTextToSpeak();
   Flame.audio.load('play.wav');
-
   FlameConst.miFlameUtil = flameUtil;
 }
 

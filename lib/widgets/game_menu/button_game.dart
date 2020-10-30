@@ -51,7 +51,9 @@ class _ButtonGameState extends State<ButtonGame> with TickerProviderStateMixin {
         Future.delayed(const Duration(milliseconds: 350), () {
           if (widget.model.child != null) {
             Navigator.push(
-                context, DefaultFadeTransition(child: widget.model.child));
+              context,
+              DefaultFadeTransition(child: widget.model.child),
+            );
           } else {
             widget.model.onTap(context);
           }
