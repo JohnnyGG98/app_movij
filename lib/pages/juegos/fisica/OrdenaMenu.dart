@@ -1,28 +1,20 @@
-import 'package:app_movij/animated/personaje_preview.dart';
 import 'package:app_movij/pages/juegos/fisica/ordena/const_ordena.dart';
 import 'package:app_movij/pages/juegos/fisica/ordena/ordena_main.dart';
-import 'package:app_movij/templates/btn_juego.dart';
-import 'package:app_movij/templates/widgets/widget_informacion_juego.dart';
-import 'package:app_movij/widgets/menu/menu_lateral.dart';
+import 'package:app_movij/utils/transitions.dart';
+import 'package:app_movij/widgets/game_menu/container_game.dart';
+import 'package:app_movij/widgets/game_menu/page_game.dart';
+import 'package:app_movij/widgets/game_menu/personaje_game.dart';
 import 'package:flutter/material.dart';
 
 class MenuOrdenaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Ordena'),
-      ),
-      drawer: MenuLateral(),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          InformacionJuego(
-            'Se debe ordenar el objeto, de dos diferentes formas. De pequeño a grande y de grande a pequeño.\n\nSeleccionar objetos:',
-          ),
-          _ObjetoOrdena(),
-        ],
-      ),
+    return PageGame(
+      title: 'Ordena',
+      text:
+          'Se debe ordenar el objeto, de dos diferentes formas. De pequeño a grande y de grande a pequeño',
+      label: 'Seleccionar objetos:',
+      child: _ObjetoOrdena(),
     );
   }
 }
@@ -38,30 +30,13 @@ class __ObjetoOrdenaState extends State<_ObjetoOrdena> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Container(
-          height: 150.0,
-          child: _menu(),
-        ),
-        SizedBox(height: 20),
-        _imgPath != ''
-            ? getPlayButtom(() {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => OrdenaMainPage(_imgPath)));
-              })
-            : Container(),
-        SizedBox(height: 40),
-        _imgPath != '' ? PersonaPreview(_imgPath) : Container()
-      ],
-    );
-  }
-
-  Widget _menu() {
-    return ListView(
-      physics: BouncingScrollPhysics(),
-      scrollDirection: Axis.horizontal,
-      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+    return ContainerGame(
+      image: _imgPath,
+      callback: () {
+        Navigator.of(context).push(DefaultFadeTransition(
+          child: OrdenaMainPage(_imgPath),
+        ));
+      },
       children: _getImagenes(),
     );
   }
@@ -73,14 +48,15 @@ class __ObjetoOrdenaState extends State<_ObjetoOrdena> {
     List<Widget> widgets = new List();
 
     for (String path in _paths) {
-      widgets.add(getBtnPersonaje(path, () {
-        setState(() {
-          _imgPath = path;
-        });
-      }));
-      widgets.add(SizedBox(
-        width: 40,
+      widgets.add(PersonajeGame(
+        img: path,
+        onTap: () {
+          setState(() {
+            _imgPath = path;
+          });
+        },
       ));
+      widgets.add(SizedBox(width: 20));
     }
 
     widgets.add(_getRandomBtn());
@@ -106,10 +82,13 @@ class __ObjetoOrdenaState extends State<_ObjetoOrdena> {
 
   Widget _getRandomBtn() {
     String path = getRandomPathOrdena();
-    return getBtnPersonaje(path, () {
-      setState(() {
-        _imgPath = path;
-      });
-    });
+    return PersonajeGame(
+      img: path,
+      onTap: () {
+        setState(() {
+          _imgPath = path;
+        });
+      },
+    );
   }
 }
