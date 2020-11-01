@@ -1,14 +1,14 @@
 import 'dart:math';
 
 import 'package:app_movij/config/config_export.dart';
+import 'package:app_movij/helpers/Helpers.dart';
 import 'package:app_movij/pages/juegos/fisica/clasifica/const_clasifica.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/personaje_encuentra.dart';
 import 'package:app_movij/templates/widgets/widget_victoria.dart';
-import 'package:app_movij/utils/speak.dart';
+import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 
 class ClasificaMainPage extends StatefulWidget {
-
   final List<ClasificaJuego> items;
 
   ClasificaMainPage(this.items);
@@ -18,21 +18,21 @@ class ClasificaMainPage extends StatefulWidget {
 }
 
 class _ClasificaMainPageState extends State<ClasificaMainPage> {
-
   final Map<String, bool> _score = {};
   final Map<String, ClasificaJuego> _choices = {};
-  List<Color> _colors = [];
-  bool _mostrarVictoria = false; 
+  List<_ColorOption> _colors = [];
+  bool _mostrarVictoria = false;
 
-  // Para crear la lista random 
+  // Para crear la lista random
   int _seed = rand.nextInt(10);
-  // Para el feedback al jugador  
-  String _feedback = 'assets/images/emoticon/emoticon-happy.png';
+  // Para el feedback al jugador
+  String _feedback = AppThemeImages.pathIconHappy;
 
   @override
   Widget build(BuildContext context) {
-    
-    if (_score.length > 0 && _score.length == _choices.length && !_mostrarVictoria) {
+    if (_score.length > 0 &&
+        _score.length == _choices.length &&
+        !_mostrarVictoria) {
       Future.delayed(const Duration(milliseconds: 1000), () {
         setState(() {
           _mostrarVictoria = true;
@@ -41,12 +41,11 @@ class _ClasificaMainPageState extends State<ClasificaMainPage> {
     } else {
       _setChoices();
     }
-    
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Puntuación ${_score.length} / ${widget.items.length}'),
       ),
-
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.refresh),
         onPressed: () {
@@ -56,153 +55,185 @@ class _ClasificaMainPageState extends State<ClasificaMainPage> {
             _seed++;
             _colors..shuffle(Random(_seed));
           });
-        }
+        },
       ),
-
-      body: _mostrarVictoria ? VictoriaJuego('Alexander') : Column(
-        children: <Widget>[
-          Container(
-            height: 175.0,
-            width: double.infinity,
-            child: _score.length == _choices.length ? 
-            Center(
-              child: Text('FELICIDADES',
-                style: TextStyle(
-                  fontSize: 30.0
-                ),
-              ),
-            ) :
-            ListView(
-              scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              children: _choices.values.map((img) {
-                return Draggable<ClasificaJuego>(
-                  data: img,
-                  child: _score[img.imgPath] == true ? 
-                  Container() :
-                   _ImagenDrag(
-                    _score[img.imgPath] == true ? 'assets/images/emoticon/emoticon-happy.png' : img.imgPath, 
-                  ),
-                  feedback: _ImagenDrag(img.imgPath),
-                  childWhenDragging: _ImagenDrag(_feedback),
-                  onDragStarted: (){
-                    _feedback = 'assets/images/emoticon/emoticon-happy.png';
-                  },
-
-                );
-              }).toList()
-                ..shuffle(Random(_seed))
-            )
-          ),
-          SizedBox(height: 15.0,),
-
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: AppThemeColors.BLUE,
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(40)
-                )
-              ),
-              width: MediaQuery.of(context).size.width * 0.95,
-              child: Column(
-                children: <Widget>[
-                  SizedBox(height: 15,),
-
-                  Text('Clasificar por el color',
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      color: Colors.white
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-
-                  Expanded(
-                    child: GridView.builder(
-                      padding: EdgeInsets.symmetric(vertical: 25.0, horizontal: 15.0),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 10,
-                        childAspectRatio: 1
-                      ),
-                      itemCount: _colors.length,
-                      itemBuilder: (BuildContext context, int i){
-                        return _tarjet(_colors[i]);
-                      },
-                    )
-                  )
-
-                ],
-              )
-            ),
-          )
-        ], 
-      ) 
-    
+      body: _mostrarVictoria ? VictoriaJuego('Alexander') : _game(),
     );
   }
 
   void _setChoices() {
     if (_choices.length > 0) return;
+    String agregados = '';
     widget.items.forEach((i) {
-      _choices.addAll({
-        i.imgPath: i
-      });
-
-      _colors.add(i.color);
+      _choices.addAll({i.imgPath: i});
+      // Si no agregamos ya el color
+      if (!agregados.contains(i.colorName)) {
+        agregados += i.colorName;
+        _colors.add(new _ColorOption(
+          color: i.color,
+          name: i.colorName,
+        ));
+      }
     });
 
     _colors = _colors.toSet().toList();
     _colors..shuffle(Random(_seed));
   }
 
-  Widget _tarjet(Color color) {
-    return DragTarget<ClasificaJuego>(
-      builder: (BuildContext context, List<ClasificaJuego> incoming, List rejected) {
-        return Container(
-          height: 75,
-          width: 150,
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(20.0),
-            border: Border.all(
-              width: 2.0,
-              color: Colors.white54
-            )
+  Widget _game() {
+    return Column(
+      children: <Widget>[
+        Material(
+          elevation: 2,
+          child: Container(
+            height: 175.0,
+            width: double.infinity,
+            color: AppThemeColors.WHITE_SHADOW.withOpacity(0.6),
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              physics: BouncingScrollPhysics(),
+              padding: EdgeInsets.only(
+                top: 15,
+                left: 15,
+                right: 15,
+                bottom: 40,
+              ),
+              children: _choices.values.map(
+                (img) {
+                  return Draggable<ClasificaJuego>(
+                    data: img,
+                    child: _score[img.imgPath] == true
+                        ? Container()
+                        : _ImagenDrag(
+                            _score[img.imgPath] == true
+                                ? AppThemeImages.pathIconHappy
+                                : img.imgPath,
+                          ),
+                    feedback: _ImagenDrag(img.imgPath),
+                    childWhenDragging: _ImagenDrag(_feedback),
+                    onDragStarted: () {
+                      _feedback = AppThemeImages.pathIconHappy;
+                    },
+                  );
+                },
+              ).toList()
+                ..shuffle(Random(_seed)),
+            ),
           ),
+        ),
+        SizedBox(height: 25),
+        Expanded(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
+              color: Colors.white,
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color: AppThemeColors.WHITE_SHADOW,
+                  spreadRadius: 2.5,
+                  blurRadius: 2,
+                  offset: Offset(0, -1),
+                )
+              ],
+            ),
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: 15),
+                Text(
+                  'Clasificar por el color',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 25),
+                Expanded(
+                  child: GridView.builder(
+                    padding: EdgeInsets.only(
+                      bottom: 25,
+                      left: 15,
+                      right: 15,
+                    ),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 15,
+                      mainAxisSpacing: 15,
+                      childAspectRatio: 1,
+                    ),
+                    physics: BouncingScrollPhysics(),
+                    itemCount: _colors.length,
+                    itemBuilder: (BuildContext context, int i) {
+                      return _tarjet(_colors[i]);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  DragTarget _tarjet(_ColorOption item) {
+    return DragTarget<ClasificaJuego>(
+      builder: (
+        BuildContext context,
+        List<ClasificaJuego> incoming,
+        List rejected,
+      ) {
+        return Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: item.color,
+                borderRadius: BorderRadius.circular(20),
+                border: item.name == 'blanco' ? Border.all() : null,
+              ),
+            ),
+            Positioned(
+              bottom: 10,
+              right: 10,
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                  border: item.name == 'blanco' ? Border.all() : null,
+                ),
+                child: IconButton(
+                  color: AppThemeColors.BLUE,
+                  icon: Icon(Icons.volume_up_rounded),
+                  onPressed: () {
+                    Helpers.speak(item.name);
+                  },
+                ),
+              ),
+            ),
+          ],
         );
       },
-
       onWillAccept: (data) {
-        bool accept = data.color == color;
+        bool accept = data.color == item.color;
         if (accept) {
-          _feedback = 'assets/images/emoticon/emoticon-smile.png';
+          _feedback = AppThemeImages.pathIconSmile;
         } else {
-          _feedback = 'assets/images/emoticon/emoticon-sad.png';
+          _feedback = AppThemeImages.pathIconSad;
         }
-        setState(() {
-          
-        });
+        setState(() {});
         return accept;
       },
-      onAccept: (data) {
+      onAccept: (data) async {
+        await Flame.audio.play('correct.wav');
         setState(() {
           _score[data.imgPath] = true;
-          speakNow(data.colorName);
         });
       },
-
       onLeave: (data) {
         setState(() {
-          _feedback = 'assets/images/emoticon/emoticon-happy.png';
+          _feedback = AppThemeImages.pathIconHappy;
         });
       },
-
-      
-
-      
-
     );
   }
 }
@@ -218,8 +249,8 @@ class _ImagenDrag extends StatelessWidget {
       color: Colors.transparent,
       child: Container(
         alignment: Alignment.center,
-        height: 75,
-        width: 75,
+        height: 100,
+        width: 100,
         child: Image(
           image: AssetImage(img),
           fit: BoxFit.contain,
@@ -228,4 +259,14 @@ class _ImagenDrag extends StatelessWidget {
       ),
     );
   }
+}
+
+class _ColorOption {
+  Color color;
+  String name;
+
+  _ColorOption({
+    this.color,
+    this.name,
+  });
 }

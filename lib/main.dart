@@ -20,7 +20,10 @@ void main() async {
 
   runApp(MyApp());
   Global().initTextToSpeak();
-  Flame.audio.load('play.wav');
+  Flame.audio.loadAll([
+    'play.wav',
+    'correct.wav',
+  ]);
   FlameConst.miFlameUtil = flameUtil;
 }
 

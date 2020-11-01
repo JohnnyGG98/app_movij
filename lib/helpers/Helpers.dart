@@ -6,4 +6,8 @@ class Helpers {
     int seed = Global().randomInt;
     return list..shuffle(Random(seed));
   }
+
+  static speak(String text) async {
+    await Global().ftts.speak(text);
+  }
 }

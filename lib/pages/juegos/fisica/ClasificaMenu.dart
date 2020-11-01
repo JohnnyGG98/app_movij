@@ -1,4 +1,5 @@
 import 'package:app_movij/pages/juegos/fisica/clasifica/clasifica_main.dart';
+import 'package:app_movij/utils/transitions.dart';
 import 'package:app_movij/widgets/game_menu/container_game.dart';
 import 'package:app_movij/widgets/game_menu/page_game.dart';
 import 'package:app_movij/widgets/game_menu/personaje_game.dart';
@@ -10,7 +11,7 @@ class MenuClasificaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageGame(
-      title: 'Clasifica',
+      title: 'Clasifica colores',
       text:
           'Se debe clasificar los objetos, con el color o su categoría correspondiente',
       label: 'Seleccionar categoría:',
@@ -101,7 +102,7 @@ class __CategoriaClasificaState extends State<_CategoriaClasifica> {
 
   void _jugar(BuildContext context, List<ClasificaJuego> items) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => ClasificaMainPage(items)),
+      DefaultFadeTransition(child: ClasificaMainPage(items)),
     );
   }
 }
