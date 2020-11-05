@@ -10,6 +10,6 @@ class GameContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return this.widget;
+    return Scaffold(body: this.widget);
   }
 }

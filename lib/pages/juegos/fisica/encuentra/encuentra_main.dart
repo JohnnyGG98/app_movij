@@ -5,6 +5,7 @@ import 'package:app_movij/config/config_export.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/boton_pausa.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/feedback_game.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/menu_encuentra.dart';
+import 'package:app_movij/widgets/game/pause_game.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/personaje_encuentra.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/spawner_encuentra.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/txtinfo_encontrar.dart';
@@ -16,7 +17,7 @@ import 'package:flutter/widgets.dart';
 // Constantes del juego
 enum _EstadoJuego { jugando, menu }
 
-class EncuentraMain extends Game with TapDetector {
+class EncuentraMain extends Game with HasWidgetsOverlay, TapDetector {
   // Constantes
   final double maxSpeed = 250;
   final int maxPersonajes = 15;
@@ -101,9 +102,13 @@ class EncuentraMain extends Game with TapDetector {
       smileSprite.render(canvas);
     }
 
-    if (estado == _EstadoJuego.menu) {
-      menuJuego.render(canvas);
-    }
+    // if (estado == _EstadoJuego.menu) {
+    //   // menuJuego.render(canvas);
+    //   addWidgetOverlay('menu', Container(
+    //     color: Color(0xFFFFFFFF),
+    //     child: Text('menu'),
+    //   ));
+    // }
   }
 
   @override
@@ -152,28 +157,33 @@ class EncuentraMain extends Game with TapDetector {
     if (botonPausa.hitBox.contains(td.globalPosition)) {
       if (estado == _EstadoJuego.menu) {
         estado = _EstadoJuego.jugando;
-        botonPausa.jugar();
+        // botonPausa.jugar();
+        removeWidgetOverlay('menu');
       } else {
         estado = _EstadoJuego.menu;
-        botonPausa.pausar();
+        // botonPausa.pausar();
+        addWidgetOverlay(
+          'menu',
+          PauseGame(
+            tapContinue: () {
+              print('Continua');
+              estado = _EstadoJuego.jugando;
+              removeWidgetOverlay('menu');
+            },
+            tapClose: () {
+              super.onDetach();
+              Navigator.pop(context);
+            },
+            tapNewGame: () {
+              removeWidgetOverlay('menu');
+              iniciarJuego();
+            },
+          ),
+        );
       }
     }
 
     if (estado != _EstadoJuego.menu) return;
-
-    if (menuJuego.hitBoxContinuar.contains(td.globalPosition)) {
-      estado = _EstadoJuego.jugando;
-      botonPausa.jugar();
-    }
-
-    if (menuJuego.hitBoxSalir.contains(td.globalPosition)) {
-      super.onDetach();
-      Navigator.pop(context);
-    }
-
-    if (menuJuego.hitBoxNuevo.contains(td.globalPosition)) {
-      iniciarJuego();
-    }
   }
 
   // Para el spawn

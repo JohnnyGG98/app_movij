@@ -1,4 +1,5 @@
 import 'package:app_movij/pages/juegos/fisica/encuentra/encuentra_main.dart';
+import 'package:app_movij/pages/juegos/game_container.dart';
 import 'package:app_movij/utils/transitions.dart';
 import 'package:app_movij/widgets/game_menu/container_game.dart';
 import 'package:app_movij/widgets/game_menu/page_game.dart';
@@ -33,7 +34,7 @@ class __PersonasEncuentraState extends State<_PersonasEncuentra> {
       image: _imgPath,
       callback: () {
         EncuentraMain em = new EncuentraMain(context, _nombrePersonaje);
-        Navigator.push(context, DefaultFadeTransition(child: em.widget));
+        Navigator.push(context, DefaultFadeTransition(child: GameContainer(widget: em.widget)));
       },
       children: _list(),
     );
