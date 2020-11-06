@@ -1,0 +1,12 @@
+export 'txtinfo_encontrar.dart';
+export 'spawner_encuentra.dart';
+export 'personaje_encuentra.dart';
+export 'menu_encuentra.dart';
+export 'feedback_game.dart';
+export 'boton_pausa.dart';
+export 'package:app_movij/widgets/game/export_game.dart';
+export 'package:app_movij/config/config_export.dart';
+export 'package:flame/flame.dart';
+export 'package:flame/game.dart';
+export 'package:flame/gestures.dart';
+export 'package:flutter/widgets.dart';

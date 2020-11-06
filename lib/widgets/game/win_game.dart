@@ -1,18 +1,16 @@
-import 'package:app_movij/config/app_theme_colors.dart';
+import 'package:app_movij/config/config_export.dart';
 import 'package:app_movij/widgets/game/button_option_game.dart';
-import 'package:app_movij/widgets/game/text_animation_game.dart';
+import 'package:app_movij/widgets/game/dance_win_game.dart';
 import 'package:flutter/material.dart';
 
-class PauseGame extends StatelessWidget {
-  final Function tapContinue;
-  final Function tapClose;
+class WinGame extends StatelessWidget {
   final Function tapNewGame;
+  final Function tapClose;
 
-  const PauseGame({
+  const WinGame({
     Key key,
-    @required this.tapContinue,
-    @required this.tapClose,
     @required this.tapNewGame,
+    @required this.tapClose,
   }) : super(key: key);
 
   @override
@@ -23,9 +21,13 @@ class PauseGame extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 30),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 25,
+              vertical: 30,
+            ),
             decoration: BoxDecoration(
-              color: Color(0xFFF0F0F0),
+              color: Color(0xFFFFFFFF),
+              // color: Colors.red,
               borderRadius: BorderRadius.circular(15),
               boxShadow: <BoxShadow>[
                 BoxShadow(
@@ -37,7 +39,7 @@ class PauseGame extends StatelessWidget {
             ),
             width: MediaQuery.of(context).size.width * 0.75,
             child: body(),
-          ),
+          )
         ],
       ),
     );
@@ -46,22 +48,7 @@ class PauseGame extends StatelessWidget {
   Widget body() {
     return Column(
       children: [
-        TextAnimationGame(
-          text: 'Menu'.toUpperCase(),
-          textStyle: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.w600,
-            letterSpacing: 1.2,
-          ),
-          maxFontSize: 40,
-          minFontSize: 35,
-        ),
-        SizedBox(height: 30),
-        ButtonOptionGame(
-          onTap: tapContinue,
-          label: 'Continuar',
-          color: AppThemeColors.BLUE,
-        ),
+        DanceWinGame(),
         ButtonOptionGame(
           onTap: tapNewGame,
           label: 'Nuevo',

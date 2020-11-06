@@ -1,21 +1,10 @@
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:app_movij/config/config_export.dart';
-import 'package:app_movij/pages/juegos/fisica/encuentra/boton_pausa.dart';
-import 'package:app_movij/pages/juegos/fisica/encuentra/feedback_game.dart';
-import 'package:app_movij/pages/juegos/fisica/encuentra/menu_encuentra.dart';
-import 'package:app_movij/widgets/game/pause_game.dart';
-import 'package:app_movij/pages/juegos/fisica/encuentra/personaje_encuentra.dart';
-import 'package:app_movij/pages/juegos/fisica/encuentra/spawner_encuentra.dart';
-import 'package:app_movij/pages/juegos/fisica/encuentra/txtinfo_encontrar.dart';
-import 'package:flame/flame.dart';
-import 'package:flame/game.dart';
-import 'package:flame/gestures.dart';
-import 'package:flutter/widgets.dart';
+import 'package:app_movij/pages/juegos/fisica/encuentra/export_encuentra.dart';
 
 // Constantes del juego
-enum _EstadoJuego { jugando, menu }
+enum _EstadoJuego { jugando, menu, ganaste }
 
 class EncuentraMain extends Game with HasWidgetsOverlay, TapDetector {
   // Constantes
@@ -67,9 +56,14 @@ class EncuentraMain extends Game with HasWidgetsOverlay, TapDetector {
     menuJuego = MenuEncuentra(this);
     botonPausa = BotonPausa(this.screenSize);
     txtInfo = TxtInformacionEncontrar(this);
-    sadSprite = FeedbackGame(em: this, iconName: 'emoticon/emoticon-sad.png');
-    smileSprite =
-        FeedbackGame(em: this, iconName: 'emoticon/emoticon-smile.png');
+    sadSprite = FeedbackGame(
+      em: this,
+      iconName: 'emoticon/emoticon-sad.png',
+    );
+    smileSprite = FeedbackGame(
+      em: this,
+      iconName: 'emoticon/emoticon-smile.png',
+    );
     spawnPersonajes = SpawnerEncuentra(this, maxPersonajes);
     iniciarJuego();
   }
@@ -79,36 +73,43 @@ class EncuentraMain extends Game with HasWidgetsOverlay, TapDetector {
     estado = _EstadoJuego.jugando;
     speed = 150;
     puntuacion = 0;
-    numEncontrar = rand.nextInt(25) + 10;
+    // numEncontrar = rand.nextInt(25) + 10;
+    numEncontrar = 1;
     spawn();
   }
 
   @override
   void render(Canvas canvas) {
     Rect backgroud = Rect.fromLTWH(0, 0, screenSize.width, screenSize.height);
-
     Paint backPaint = Paint()..color = AppThemeColors.BLUE;
     canvas.drawRect(backgroud, backPaint);
 
-    botonPausa.render(canvas);
-
     if (estado == _EstadoJuego.jugando) {
+      botonPausa.render(canvas);
+
       personajes.forEach((p) {
         p.render(canvas);
       });
       txtInfo.render(canvas);
-
       sadSprite.render(canvas);
       smileSprite.render(canvas);
     }
 
-    // if (estado == _EstadoJuego.menu) {
-    //   // menuJuego.render(canvas);
-    //   addWidgetOverlay('menu', Container(
-    //     color: Color(0xFFFFFFFF),
-    //     child: Text('menu'),
-    //   ));
-    // }
+    if (estado == _EstadoJuego.ganaste) {
+      addWidgetOverlay(
+        'win',
+        WinGame(
+          tapClose: () {
+            super.onDetach();
+            Navigator.pop(context);
+          },
+          tapNewGame: () {
+            removeWidgetOverlay('win');
+            iniciarJuego();
+          },
+        ),
+      );
+    }
   }
 
   @override
@@ -135,20 +136,23 @@ class EncuentraMain extends Game with HasWidgetsOverlay, TapDetector {
   }
 
   @override
-  void onTapUp(TapUpDetails details) {
-    print(
-        "Player tap up on ${details.globalPosition.dx} - ${details.globalPosition.dy}");
-  }
+  void onTapUp(TapUpDetails details) {}
 
   @override
   void onTapDown(TapDownDetails td) {
     if (estado == _EstadoJuego.jugando) {
-      personajes.forEach((p) {
+      personajes.forEach((p) async {
         if (p.personaje.contains(td.globalPosition)) {
-          p.onTapDowm();
-
+          bool encontrado = p.onTapDowm();
+          if (encontrado) {
+            await Flame.audio.play('correct.wav');
+          } else {
+            await Flame.audio.play('incorrect.ogg');
+          }
           if (puntuacion == numEncontrar) {
-            estado = _EstadoJuego.menu;
+            Future.delayed(const Duration(milliseconds: 300), () {
+              estado = _EstadoJuego.ganaste;
+            });
           }
         }
       });
@@ -157,36 +161,16 @@ class EncuentraMain extends Game with HasWidgetsOverlay, TapDetector {
     if (botonPausa.hitBox.contains(td.globalPosition)) {
       if (estado == _EstadoJuego.menu) {
         estado = _EstadoJuego.jugando;
-        // botonPausa.jugar();
         removeWidgetOverlay('menu');
       } else {
         estado = _EstadoJuego.menu;
-        // botonPausa.pausar();
         addWidgetOverlay(
           'menu',
-          PauseGame(
-            tapContinue: () {
-              print('Continua');
-              estado = _EstadoJuego.jugando;
-              removeWidgetOverlay('menu');
-            },
-            tapClose: () {
-              super.onDetach();
-              Navigator.pop(context);
-            },
-            tapNewGame: () {
-              removeWidgetOverlay('menu');
-              iniciarJuego();
-            },
-          ),
+          getMenu(),
         );
       }
     }
-
-    if (estado != _EstadoJuego.menu) return;
   }
-
-  // Para el spawn
 
   void spawn() {
     _spawnPersonaje();
@@ -223,5 +207,22 @@ class EncuentraMain extends Game with HasWidgetsOverlay, TapDetector {
   void onDetach() {
     super.onDetach();
     Flame.images.clearCache();
+  }
+
+  Widget getMenu() {
+    return PauseGame(
+      tapContinue: () {
+        estado = _EstadoJuego.jugando;
+        removeWidgetOverlay('menu');
+      },
+      tapClose: () {
+        super.onDetach();
+        Navigator.pop(context);
+      },
+      tapNewGame: () {
+        removeWidgetOverlay('menu');
+        iniciarJuego();
+      },
+    );
   }
 }

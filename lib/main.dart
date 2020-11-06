@@ -23,6 +23,7 @@ void main() async {
   Flame.audio.loadAll([
     'play.wav',
     'correct.wav',
+    'incorrect.ogg',
   ]);
   FlameConst.miFlameUtil = flameUtil;
 }
