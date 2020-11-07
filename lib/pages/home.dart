@@ -1,6 +1,6 @@
-import 'package:app_movij/templates/fondo.dart';
+import 'package:app_movij/config/config_export.dart';
 import 'package:app_movij/utils/pantalla.dart';
-import 'package:app_movij/widgets/home/home_copy.dart';
+import 'package:app_movij/widgets/common/icon_logo.dart';
 import 'package:app_movij/widgets/home/home_play_button.dart';
 import 'package:flutter/material.dart';
 
@@ -9,53 +9,69 @@ class HomePage extends StatelessWidget with PortraitModeMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final Size size = MediaQuery.of(context).size;
 
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: CustomPaint(
-        painter: HomePainter(),
+      body: SafeArea(
         child: Container(
           height: size.height,
           width: double.infinity,
-          child: Stack(
-            children: <Widget>[
-              Positioned(
-                top: 110.0,
-                left: size.width / 2 - SIZE_LOGO,
-                child: _ipcaLogo(),
-              ),
-              Positioned(
-                top: size.height * 0.675,
-                left: size.width * 0.25,
-                right: size.width * 0.25,
-                child: HomeCopy(),
-              ),
-              Center(child: HomePlayButton()),
-            ],
+          color: AppThemeColors.BLUE,
+          child: Container(
+            margin: const EdgeInsets.symmetric(vertical: 50, horizontal: 25),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _getText(),
+                _ipcaLogo(),
+                Spacer(),
+                Center(child: HomePlayButton()),
+              ],
+            ),
           ),
         ),
       ),
-      floatingActionButton: Container(
-        height: 70,
-        width: 70,
-        child: FloatingActionButton(
-          child: Icon(
-            Icons.vpn_key,
-            size: 40,
+    );
+  }
+
+  Widget _getText() {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          IconLogon(),
+          Text(
+            'Movij'.toUpperCase(),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 50,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 1.5,
+            ),
           ),
-          onPressed: () {},
-        ),
+          Text(
+            'Aprende jugando',
+            style: TextStyle(
+              color: AppThemeColors.WHITE,
+              fontSize: 20,
+            ),
+          ),
+        ],
       ),
     );
   }
 
   Widget _ipcaLogo() {
-    return Container(
-      height: SIZE_LOGO,
-      child: Image(
-        image: AssetImage('assets/app/ipca.png'),
-        fit: BoxFit.contain,
+    return Center(
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 25),
+        height: SIZE_LOGO,
+        child: Image(
+          image: AssetImage('assets/app/ipca.png'),
+          fit: BoxFit.contain,
+        ),
       ),
     );
   }
+
 }
