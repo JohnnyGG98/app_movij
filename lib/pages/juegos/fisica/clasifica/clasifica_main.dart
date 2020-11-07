@@ -5,6 +5,7 @@ import 'package:app_movij/helpers/Helpers.dart';
 import 'package:app_movij/pages/juegos/fisica/clasifica/const_clasifica.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/personaje_encuentra.dart';
 import 'package:app_movij/templates/widgets/widget_victoria.dart';
+import 'package:app_movij/widgets/game/reload_button_game.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 
@@ -46,9 +47,8 @@ class _ClasificaMainPageState extends State<ClasificaMainPage> {
       appBar: AppBar(
         title: Text('Puntuación ${_score.length} / ${widget.items.length}'),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.refresh),
-        onPressed: () {
+      floatingActionButton: ReloadButtonGame(
+        onTap: () {
           setState(() {
             _mostrarVictoria = false;
             _score.clear();

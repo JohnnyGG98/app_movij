@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:app_movij/config/config_export.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/personaje_encuentra.dart';
 import 'package:app_movij/templates/widgets/widget_victoria.dart';
+import 'package:app_movij/widgets/game/reload_button_game.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 
@@ -52,7 +53,6 @@ class _OrdenaMainPageState extends State<OrdenaMainPage> {
 
     if (_win) {
       _win = false;
-      // speakNow('Ganaste... Felicidades!');
       Future.delayed(const Duration(milliseconds: 1000), () {
         setState(() {
           _mostrarVictoria = true;
@@ -64,30 +64,26 @@ class _OrdenaMainPageState extends State<OrdenaMainPage> {
       appBar: AppBar(
         title: Text('$_orden # $_numMov'),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.check),
-        onPressed: _mostrarVictoria ? _newGame : null,
-        backgroundColor: _mostrarVictoria
-            ? AppThemeColors.GREEN
-            : AppThemeColors.WHITE_SHADOW,
-      ),
+      floatingActionButton: ReloadButtonGame(onTap: _newGame),
       body: _mostrarVictoria ? VictoriaJuego('Edisson') : _game(),
     );
   }
 
   void _newGame() {
-    if (_win) {
-      validarGame();
+    _numMov = 0;
+    _mostrarVictoria = false;
+    _seed++;
+    _intentos++;
+    _tamanos = _getTamanos();
+    ordenados = getOrdenados();
+    _gameMode = rand.nextInt(2);
+
+    bool win = _youWin();
+    // Intentamos generar un juego nuevo sin que esten ordenados los objetos
+    if (win) {
+      _newGame();
     } else {
-      setState(() {
-        _numMov = 0;
-        _mostrarVictoria = false;
-        _seed++;
-        _intentos++;
-        _tamanos = _getTamanos();
-        ordenados = getOrdenados();
-        _gameMode = rand.nextInt(2);
-      });
+      setState(() {});
     }
   }
 
@@ -201,7 +197,7 @@ class _OrdenaMainPageState extends State<OrdenaMainPage> {
     _numMov++;
   }
 
-  void _youWin() {
+  bool _youWin() {
     _win = true;
     for (var i = 0; i < ordenados.length; i++) {
       if (_tamanos[i] != ordenados[i]) {
@@ -209,6 +205,7 @@ class _OrdenaMainPageState extends State<OrdenaMainPage> {
         break;
       }
     }
+    return _win;
   }
 
   void validarGame() {
