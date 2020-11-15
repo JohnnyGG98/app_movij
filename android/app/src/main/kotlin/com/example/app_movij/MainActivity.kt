@@ -1,4 +1,4 @@
-package com.example.app_movij
+package com.zeroteam.app_movij
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
