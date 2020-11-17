@@ -5,6 +5,7 @@ import 'package:app_movij/pages/juegos/fisica/EncuentraMenu.dart';
 import 'package:app_movij/pages/juegos/fisica/OrdenaMenu.dart';
 import 'package:app_movij/pages/juegos/lenguaje/LamparaPage.dart';
 import 'package:app_movij/pages/juegos/lenguaje/TiempoMenu.dart';
+import 'package:app_movij/pages/juegos/lenguaje/armar_menu.dart';
 import 'package:app_movij/utils/transitions.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -111,6 +112,13 @@ List<ButtonGameModel> buttonsTL = [
     juego: 'Pictogramas',
     animationStart: Offset(40, 40),
     register: GameRegisterModel(),
+  ),
+  ButtonGameModel(
+    color: Colors.teal.withOpacity(0.8),
+    juego: 'Rompecabezas',
+    animationStart: Offset(-20, -20),
+    register: GameRegisterModel(),
+    child: ArmarMenu(),
   ),
 ];
 
