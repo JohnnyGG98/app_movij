@@ -1,8 +1,8 @@
 import 'package:app_movij/pages/menu/juegos/menu_juego_tablet.dart';
-import 'package:app_movij/templates/widgets/responsive.dart';
 import 'package:app_movij/utils/global.dart';
 import 'package:app_movij/widgets/bottom_menu/animated_bottom_bar.dart';
 import 'package:app_movij/widgets/menu/menu_lateral.dart';
+import 'package:app_movij/widgets/responsive.dart';
 import 'package:flutter/material.dart';
 
 import 'juegos_tf.dart';

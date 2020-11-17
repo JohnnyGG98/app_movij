@@ -2,10 +2,10 @@ import 'package:app_movij/config/config_export.dart';
 import 'package:app_movij/helpers/Helpers.dart';
 import 'package:app_movij/models/user_model.dart';
 import 'package:app_movij/pages/menu/juegos/menu_juego.dart';
-import 'package:app_movij/templates/widgets/responsive.dart';
 import 'package:app_movij/utils/global.dart';
 import 'package:app_movij/utils/transitions.dart';
 import 'package:app_movij/widgets/menu/menu_lateral.dart';
+import 'package:app_movij/widgets/responsive.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 

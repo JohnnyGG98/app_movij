@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:app_movij/animated/personaje_preview.dart';
+import 'package:app_movij/widgets/game/personaje_preview.dart';
 import 'package:app_movij/widgets/menu/menu_lateral.dart';
 import 'package:flutter/material.dart';
 
