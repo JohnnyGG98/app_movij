@@ -3,6 +3,7 @@ import 'package:app_movij/models/game_register_model.dart';
 import 'package:app_movij/pages/juegos/fisica/ClasificaMenu.dart';
 import 'package:app_movij/pages/juegos/fisica/EncuentraMenu.dart';
 import 'package:app_movij/pages/juegos/fisica/OrdenaMenu.dart';
+import 'package:app_movij/pages/juegos/fisica/encuentra/export_encuentra.dart';
 import 'package:app_movij/pages/juegos/lenguaje/LamparaPage.dart';
 import 'package:app_movij/pages/juegos/lenguaje/TiempoMenu.dart';
 import 'package:app_movij/pages/juegos/lenguaje/armar_menu.dart';

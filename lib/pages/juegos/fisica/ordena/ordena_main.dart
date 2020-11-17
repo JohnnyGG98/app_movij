@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:app_movij/config/config_export.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/personaje_encuentra.dart';
-import 'package:app_movij/templates/widgets/widget_victoria.dart';
 import 'package:app_movij/widgets/game/reload_button_game.dart';
+import 'package:app_movij/widgets/game/win_game_page.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 
@@ -65,7 +65,11 @@ class _OrdenaMainPageState extends State<OrdenaMainPage> {
         title: Text('$_orden # $_numMov'),
       ),
       floatingActionButton: ReloadButtonGame(onTap: _newGame),
-      body: _mostrarVictoria ? VictoriaJuego('Edisson') : _game(),
+      body: _mostrarVictoria
+          ? WinGamePage(
+              tapNewGame: _newGame,
+            )
+          : _game(),
     );
   }
 

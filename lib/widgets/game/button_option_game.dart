@@ -17,8 +17,11 @@ class ButtonOptionGame extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.only(bottom: 22.5),
-        padding: EdgeInsets.symmetric(vertical: 12.5, horizontal: 30),
+        margin: const EdgeInsets.only(bottom: 22.5),
+        padding: const EdgeInsets.symmetric(
+          vertical: 12.5,
+          horizontal: 30,
+        ),
         decoration: BoxDecoration(
           color: color,
           border: Border.all(width: 3.5),
@@ -38,6 +41,7 @@ class ButtonOptionGame extends StatelessWidget {
             fontWeight: FontWeight.w600,
             letterSpacing: 1.1,
           ),
+          textAlign: TextAlign.center,
         ),
       ),
     );

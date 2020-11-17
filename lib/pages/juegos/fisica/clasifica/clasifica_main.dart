@@ -4,8 +4,8 @@ import 'package:app_movij/config/config_export.dart';
 import 'package:app_movij/helpers/Helpers.dart';
 import 'package:app_movij/pages/juegos/fisica/clasifica/const_clasifica.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/personaje_encuentra.dart';
-import 'package:app_movij/templates/widgets/widget_victoria.dart';
 import 'package:app_movij/widgets/game/reload_button_game.dart';
+import 'package:app_movij/widgets/game/win_game_page.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 
@@ -34,11 +34,14 @@ class _ClasificaMainPageState extends State<ClasificaMainPage> {
     if (_score.length > 0 &&
         _score.length == _choices.length &&
         !_mostrarVictoria) {
-      Future.delayed(const Duration(milliseconds: 1000), () {
-        setState(() {
-          _mostrarVictoria = true;
-        });
-      });
+      Future.delayed(
+        const Duration(milliseconds: 1000),
+        () {
+          setState(() {
+            _mostrarVictoria = true;
+          });
+        },
+      );
     } else {
       _setChoices();
     }
@@ -48,17 +51,23 @@ class _ClasificaMainPageState extends State<ClasificaMainPage> {
         title: Text('Puntuación ${_score.length} / ${widget.items.length}'),
       ),
       floatingActionButton: ReloadButtonGame(
-        onTap: () {
-          setState(() {
-            _mostrarVictoria = false;
-            _score.clear();
-            _seed++;
-            _colors..shuffle(Random(_seed));
-          });
-        },
+        onTap: newGame,
       ),
-      body: _mostrarVictoria ? VictoriaJuego('Alexander') : _game(),
+      body: _mostrarVictoria
+          ? WinGamePage(
+              tapNewGame: newGame,
+            )
+          : _game(),
     );
+  }
+
+  void newGame() {
+    setState(() {
+      _mostrarVictoria = false;
+      _score.clear();
+      _seed++;
+      _colors..shuffle(Random(_seed));
+    });
   }
 
   void _setChoices() {
