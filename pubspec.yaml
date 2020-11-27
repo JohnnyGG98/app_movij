@@ -64,6 +64,7 @@ flutter:
     - assets/games/tl/
     - assets/games/tl/animation/
     - assets/games/tl/armar/
+    - assets/games/tl/pictogramas/
     - assets/audio/
 
   # An image asset can refer to one or more resolution-specific "variants", see

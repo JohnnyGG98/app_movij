@@ -1,32 +1,33 @@
-import 'package:app_movij/pages/juegos/lenguaje/armar/armar_main.dart';
-import 'package:app_movij/pages/juegos/lenguaje/armar/cons_armar.dart';
+import 'package:app_movij/pages/juegos/lenguaje/pictograma/cons_pictograma.dart';
+import 'package:app_movij/pages/juegos/lenguaje/pictograma/pictograma_main.dart';
 import 'package:app_movij/utils/transitions.dart';
 import 'package:app_movij/widgets/game_menu/container_game.dart';
 import 'package:app_movij/widgets/game_menu/page_game.dart';
 import 'package:app_movij/widgets/game_menu/personaje_game.dart';
 import 'package:flutter/material.dart';
 
-class ArmarMenu extends StatelessWidget {
+class PictogramaMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageGame(
-      title: 'Rompecabezas',
-      text: 'Se debe armar las figuras en su forma correcta',
-      label: 'Rompecabezas',
-      child: _ArmarItems(),
+      title: 'Pictogramas',
+      text: 'Completar la palabra',
+      label: 'Pictogramas',
+      child: _PictogramaItems(),
     );
   }
 }
 
-class _ArmarItems extends StatefulWidget {
+class _PictogramaItems extends StatefulWidget {
   @override
-  __ArmarItemsState createState() => __ArmarItemsState();
+  __PictogramaItemsState createState() => __PictogramaItemsState();
 }
 
-class __ArmarItemsState extends State<_ArmarItems> {
+class __PictogramaItemsState extends State<_PictogramaItems> {
   String label = '';
   String image = '';
   List<Widget> widgets;
+  PictogramaJuego model;
 
   @override
   void initState() {
@@ -41,7 +42,7 @@ class __ArmarItemsState extends State<_ArmarItems> {
       image: image,
       callback: () {
         Navigator.of(context).push(DefaultFadeTransition(
-          child: ArmarMain(image: image),
+          child: PictogramaMain(model: model),
         ));
       },
       children: widgets,
@@ -50,13 +51,14 @@ class __ArmarItemsState extends State<_ArmarItems> {
 
   List<Widget> getItems() {
     List<Widget> list = [];
-    for (ArmarJuego item in opcionesArmar) {
+    for (PictogramaJuego item in opcionesPictograma) {
       list.add(PersonajeGame(
         img: item.imgPath,
         onTap: () {
           setState(() {
             label = item.nombre;
             image = item.imgPath;
+            model = item;
           });
         },
       ));
