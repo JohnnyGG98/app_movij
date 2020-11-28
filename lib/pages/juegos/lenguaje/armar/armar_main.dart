@@ -5,6 +5,7 @@ import 'package:app_movij/pages/juegos/fisica/encuentra/export_encuentra.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/personaje_encuentra.dart';
 import 'package:app_movij/widgets/game/armar/pieze.dart';
 import 'package:app_movij/widgets/game/reload_button_game.dart';
+import 'package:app_movij/widgets/game/win_game_page.dart';
 import 'package:flutter/material.dart';
 
 class ArmarMain extends StatefulWidget {
@@ -25,7 +26,7 @@ class _ArmarMainState extends State<ArmarMain> {
   Image image;
   final Size size = new Size(2000, 2000);
   // final Size size = new Size(100, 100);
-  final int gameMode = 3;
+  int gameMode = 3;
   Size screenSize;
   double containerSize;
   int seed = rand.nextInt(10);
@@ -38,6 +39,7 @@ class _ArmarMainState extends State<ArmarMain> {
       image: AssetImage(widget.image),
       fit: BoxFit.cover,
     );
+    gameMode = getRandomGame();
   }
 
   @override
@@ -52,22 +54,25 @@ class _ArmarMainState extends State<ArmarMain> {
           'Rompecabezas ${score.length}/${gameMode * gameMode}',
         ),
       ),
-      floatingActionButton: ReloadButtonGame(
-        onTap: () {
-          setState(() {
-            seed++;
-            widgets.clear();
-            getPiezes();
-          });
-        },
-      ),
-      body: Column(
-        children: [
-          Expanded(child: getContainer()),
-          _piezes(),
-        ],
-      ),
+      body: score.length == (gameMode * gameMode)
+          ? WinGamePage(
+              tapNewGame: () {
+                Navigator.pop(context);
+              },
+            )
+          : Column(
+              children: [
+                Expanded(child: getContainer()),
+                _piezes(),
+              ],
+            ),
     );
+  }
+
+  int getRandomGame() {
+    int mode = rand.nextInt(5);
+    mode = (mode > 1) ? mode : (mode + 1);
+    return (mode == 1) ? mode + 1 : mode;
   }
 
   Widget _piezes() {
