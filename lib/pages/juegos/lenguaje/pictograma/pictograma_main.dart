@@ -31,12 +31,17 @@ class _PictogramaMainState extends State<PictogramaMain> {
       final h = rand.nextInt(nombre.length);
       if ((h % 2 == 0 && numHidden <= maxHidden)) {
         hidden[i] = '';
-        complete += nombre[i];
+        if (h <= (nombre.length ~/ 2)) {
+          complete += nombre[i];
+        } else {
+          complete = nombre[i] + complete;
+        }
         numHidden++;
       } else {
         hidden[i] = nombre[i];
       }
     }
+    
   }
 
   @override
