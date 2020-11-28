@@ -1,7 +1,11 @@
+import 'dart:async';
+
+import 'package:app_movij/config/config_export.dart';
 import 'package:flutter/material.dart';
+import 'package:sensors/sensors.dart';
 
 // Colores que usaremos en las animaciones
-final darkGrey = const Color(0xFF232323);
+final darkGrey = AppThemeColors.BLUE_DARK;
 final bulbOnColor = const Color(0xFFFFE12C);
 final bulbOffColor = const Color(0xFFC1C1C1);
 final gradientStartColor = const Color(0xFFFDF380);
@@ -15,6 +19,9 @@ class LamparaPage extends StatefulWidget {
 
 class _LamparaPageState extends State<LamparaPage> {
   bool switched = false;
+
+  List<StreamSubscription<dynamic>> _streamSubscriptions =
+      <StreamSubscription<dynamic>>[];
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +67,28 @@ class _LamparaPageState extends State<LamparaPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    for (StreamSubscription<dynamic> subscription in _streamSubscriptions) {
+      subscription.cancel();
+    }
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    _streamSubscriptions.add(
+      accelerometerEvents.listen((AccelerometerEvent event) {
+        if (event.x > 10) {
+          setState(() {
+            switched = !switched;
+          });
+        }
+      }),
+    );
+    super.initState();
   }
 }
 
