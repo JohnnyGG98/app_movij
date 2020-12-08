@@ -3,6 +3,7 @@ import 'package:app_movij/models/game_register_model.dart';
 import 'package:app_movij/pages/juegos/fisica/ClasificaMenu.dart';
 import 'package:app_movij/pages/juegos/fisica/EncuentraMenu.dart';
 import 'package:app_movij/pages/juegos/fisica/OrdenaMenu.dart';
+import 'package:app_movij/pages/juegos/fisica/direccion/direccion_main.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/export_encuentra.dart';
 import 'package:app_movij/pages/juegos/lenguaje/LamparaPage.dart';
 import 'package:app_movij/pages/juegos/lenguaje/TiempoMenu.dart';
@@ -77,6 +78,14 @@ List<ButtonGameModel> buttonsTF = [
     animationStart: Offset(-40, -40),
     register: GameRegisterModel(),
     child: MenuClasificaPage(),
+  ),
+  ButtonGameModel(
+    color: Colors.purple.withOpacity(0.8),
+    juego: 'Direcciones',
+    page: 'juego/tf/clasifica',
+    animationStart: Offset(40, 40),
+    register: GameRegisterModel(),
+    child: DireccionMain(),
   ),
 ];
 

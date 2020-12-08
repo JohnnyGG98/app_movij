@@ -4,7 +4,6 @@ import 'package:app_movij/config/config_export.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/export_encuentra.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/personaje_encuentra.dart';
 import 'package:app_movij/widgets/game/armar/pieze.dart';
-import 'package:app_movij/widgets/game/reload_button_game.dart';
 import 'package:app_movij/widgets/game/win_game_page.dart';
 import 'package:flutter/material.dart';
 
