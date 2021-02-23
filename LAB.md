@@ -1,3 +1,9 @@
+# Build app 
+
+```bash
+$ & "C:\Program Files\Java\jdk1.8.0_241\bin\keytool.exe" -genkey -v -keystore C:\Users\johnn\key.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias key
+```
+
 Codigo para saber a donde se movio el celular: 
 
 ```dart

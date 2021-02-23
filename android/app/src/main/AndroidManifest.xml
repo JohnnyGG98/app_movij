@@ -7,7 +7,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="app_movij"
+        android:label="Movij"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
@@ -27,4 +27,6 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>
