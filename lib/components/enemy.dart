@@ -1,57 +1,42 @@
-
-
 import 'dart:ui';
 
 import 'package:app_movij/game_ctr.dart';
+import 'package:flame/sprite.dart';
 
 class Enemy {
-
-  final GameController gc; 
-  int healt; 
-  int damage; 
-  double speed; 
+  static const IMG_ENEMY = 'cometa.png';
+  final GameController gc;
+  int healt;
+  int damage;
+  double speed;
   Rect enemyRect;
-  bool isDead = false; 
+  bool isDead = false;
+  Sprite sprite;
 
-  Enemy(this.gc, double x, double y){
+  Enemy(this.gc, double x, double y, String img) {
     healt = 1;
     damage = 1;
     speed = gc.tileSize * 2;
     enemyRect = Rect.fromLTWH(
-      x, 
-      y, 
-      gc.tileSize * 1.2, 
-      gc.tileSize * 1.2
+      x,
+      y,
+      gc.tileSize * 1.2,
+      gc.tileSize * 1.2,
     );
+    sprite = Sprite(img);
   }
 
   void render(Canvas c) {
-    Color color; 
-    switch(healt) {
-      case 1: 
-        color = Color(0xFFFF7F7F);
-      break;
-      case 2:
-        color = Color(0xFFFF4C4C);
-      break;
-      case 3: 
-        color = Color(0xFFFF4500);
-      break;
-      default: 
-        color = Color(0XFFFF0000);
-      break;
-    }
-
-    Paint enemyColor = Paint()..color = color; 
-    c.drawRect(enemyRect, enemyColor);
+    sprite.renderRect(c, enemyRect);
   }
 
   void update(double t) {
     if (!isDead) {
-      double stepDistance = speed * t; 
+      double stepDistance = speed * t;
       Offset toPlayer = gc.player.playerRect.center - enemyRect.center;
       if (stepDistance <= toPlayer.distance - gc.tileSize * 1.25) {
-        Offset stepToPlayer = Offset.fromDirection(toPlayer.direction, stepDistance);
+        Offset stepToPlayer =
+            Offset.fromDirection(toPlayer.direction, stepDistance);
         // Con shift movemos de un punto a otro
         enemyRect = enemyRect.shift(stepToPlayer);
       } else {
@@ -70,14 +55,13 @@ class Enemy {
     if (!isDead) {
       healt--;
       if (healt <= 0) {
-        isDead = true; 
+        isDead = true;
         // Putuacion
         gc.score++;
-        if ((gc.score ?? 0 ) > (gc.store.getInt('maxscore') ?? 0)) {
+        if ((gc.score ?? 0) > (gc.store.getInt('maxscore') ?? 0)) {
           gc.store.setInt('maxscore', gc.score ?? 0);
         }
       }
     }
   }
-
 }

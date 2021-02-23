@@ -5,6 +5,7 @@ import 'package:app_movij/pages/juegos/fisica/EncuentraMenu.dart';
 import 'package:app_movij/pages/juegos/fisica/OrdenaMenu.dart';
 import 'package:app_movij/pages/juegos/fisica/direccion/direccion_main.dart';
 import 'package:app_movij/pages/juegos/fisica/encuentra/export_encuentra.dart';
+import 'package:app_movij/pages/juegos/game_container.dart';
 import 'package:app_movij/pages/juegos/lenguaje/LamparaPage.dart';
 import 'package:app_movij/pages/juegos/lenguaje/TiempoMenu.dart';
 import 'package:app_movij/pages/juegos/lenguaje/armar_menu.dart';
@@ -58,8 +59,8 @@ List<ButtonGameModel> buttonsTF = [
     onTap: (BuildContext context) async {
       // La puntuacion mas alta guardada
       SharedPreferences store = await SharedPreferences.getInstance();
-      GameController gc = new GameController(store);
-      Navigator.push(context, DefaultFadeTransition(child: gc.widget));
+      GameController gc = new GameController(context, store);
+      Navigator.push(context, DefaultFadeTransition(child: GameContainer(widget: gc.widget)));
     },
     register: GameRegisterModel(lastPlay: DateTime.now(), totalWins: 2),
   ),
@@ -89,7 +90,7 @@ List<ButtonGameModel> buttonsTF = [
   ),
 ];
 
-// Juegos de terapias de lenguaje 
+// Juegos de terapias de lenguaje
 
 List<ButtonGameModel> buttonsTL = [
   ButtonGameModel(
@@ -106,12 +107,13 @@ List<ButtonGameModel> buttonsTL = [
     register: GameRegisterModel(lastPlay: DateTime.now(), totalWins: 7),
     child: LamparaPage(),
   ),
-  ButtonGameModel(
-    color: Colors.indigo.withOpacity(0.7),
-    juego: 'Hora',
-    animationStart: Offset(20, 20),
-    register: GameRegisterModel(),
-  ),
+  // ButtonGameModel(
+  //   color: Colors.indigo.withOpacity(0.7),
+  //   juego: 'Hora',
+  //   animationStart: Offset(20, 20),
+  //   register: GameRegisterModel(),
+  //   onTap: (BuildContext context) {},
+  // ),
   ButtonGameModel(
     color: Colors.yellowAccent.withOpacity(0.8),
     juego: 'Cantidad',
@@ -133,4 +135,3 @@ List<ButtonGameModel> buttonsTL = [
     child: ArmarMenu(),
   ),
 ];
-

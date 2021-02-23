@@ -25,7 +25,7 @@ class ScoreText {
       paint.text = TextSpan(
         text: gc.score.toString(),
         style: TextStyle(
-          color: Colors.deepOrange, 
+          color: Colors.white, 
           fontSize: 70.0
         )
       );

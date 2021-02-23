@@ -7,12 +7,16 @@ class PauseGame extends StatelessWidget {
   final Function tapContinue;
   final Function tapClose;
   final Function tapNewGame;
+  final String labelContinue;
+  final String info;
 
   const PauseGame({
     Key key,
     @required this.tapContinue,
     @required this.tapClose,
-    @required this.tapNewGame,
+    this.tapNewGame,
+    this.labelContinue: 'Continuar',
+    this.info: '',
   }) : super(key: key);
 
   @override
@@ -57,16 +61,26 @@ class PauseGame extends StatelessWidget {
           minFontSize: 35,
         ),
         SizedBox(height: 30),
+        if (this.info != '')
+          Text(
+            this.info,
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        if (this.info != '') SizedBox(height: 10),
         ButtonOptionGame(
           onTap: tapContinue,
-          label: 'Continuar',
+          label: this.labelContinue,
           color: AppThemeColors.BLUE,
         ),
-        ButtonOptionGame(
-          onTap: tapNewGame,
-          label: 'Nuevo',
-          color: AppThemeColors.GREEN,
-        ),
+        if (tapNewGame != null)
+          ButtonOptionGame(
+            onTap: tapNewGame,
+            label: 'Nuevo',
+            color: AppThemeColors.GREEN,
+          ),
         ButtonOptionGame(
           onTap: tapClose,
           label: 'Salir',

@@ -31,8 +31,8 @@ class HealtBar {
 
 
   void render(Canvas c) {
-    Paint healtColor = Paint()..color = Color(0xFFFF0000);
-    Paint actualHealtColor = Paint()..color = Color(0xFF00FF00);
+    Paint healtColor = Paint()..color = Color(0xFFC8151D);
+    Paint actualHealtColor = Paint()..color = Color(0xFF00BB35);
 
     c.drawRect(healtBarRect, healtColor);
     c.drawRect(actualHealtBarRect, actualHealtColor);
