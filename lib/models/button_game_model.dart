@@ -60,7 +60,8 @@ List<ButtonGameModel> buttonsTF = [
       // La puntuacion mas alta guardada
       SharedPreferences store = await SharedPreferences.getInstance();
       GameController gc = new GameController(context, store);
-      Navigator.push(context, DefaultFadeTransition(child: GameContainer(widget: gc.widget)));
+      Navigator.push(context,
+          DefaultFadeTransition(child: GameContainer(widget: gc.widget)));
     },
     register: GameRegisterModel(lastPlay: DateTime.now(), totalWins: 2),
   ),
@@ -114,12 +115,12 @@ List<ButtonGameModel> buttonsTL = [
   //   register: GameRegisterModel(),
   //   onTap: (BuildContext context) {},
   // ),
-  ButtonGameModel(
-    color: Colors.yellowAccent.withOpacity(0.8),
-    juego: 'Cantidad',
-    animationStart: Offset(-40, -40),
-    register: GameRegisterModel(),
-  ),
+  // ButtonGameModel(
+  //   color: Colors.yellowAccent.withOpacity(0.8),
+  //   juego: 'Cantidad',
+  //   animationStart: Offset(-40, -40),
+  //   register: GameRegisterModel(),
+  // ),
   ButtonGameModel(
     color: Colors.pinkAccent.withOpacity(0.8),
     juego: 'Pictogramas',

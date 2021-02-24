@@ -55,7 +55,7 @@ class _ButtonGameState extends State<ButtonGame> with TickerProviderStateMixin {
               DefaultFadeTransition(child: widget.model.child),
             );
           } else {
-            widget.model.onTap(context);
+            widget.model?.onTap(context);
           }
         });
         // Volvemos a la posicion inicial en bg
