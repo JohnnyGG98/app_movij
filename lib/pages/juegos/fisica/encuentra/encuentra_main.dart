@@ -73,8 +73,8 @@ class EncuentraMain extends Game with HasWidgetsOverlay, TapDetector {
     estado = _EstadoJuego.jugando;
     speed = 150;
     puntuacion = 0;
-    // numEncontrar = rand.nextInt(25) + 10;
-    numEncontrar = 1;
+    numEncontrar = rand.nextInt(10) + 10;
+    // numEncontrar = 1;
     spawn();
   }
 
@@ -149,7 +149,7 @@ class EncuentraMain extends Game with HasWidgetsOverlay, TapDetector {
           } else {
             await Flame.audio.play('incorrect.ogg');
           }
-          if (puntuacion == numEncontrar) {
+          if (puntuacion >= numEncontrar) {
             Future.delayed(const Duration(milliseconds: 300), () {
               estado = _EstadoJuego.ganaste;
             });

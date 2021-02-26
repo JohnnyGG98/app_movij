@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:app_movij/game_ctr.dart';
+import 'package:app_movij/pages/juegos/fisica/encuentra/export_encuentra.dart';
 import 'package:flame/sprite.dart';
 
 class Enemy {
@@ -51,11 +52,12 @@ class Enemy {
     }
   }
 
-  void onTapDown() {
+  void onTapDown() async {
     if (!isDead) {
       healt--;
       if (healt <= 0) {
         isDead = true;
+        await Flame.audio.play('correct.wav');
         // Putuacion
         gc.score++;
         if ((gc.score ?? 0) > (gc.store.getInt('maxscore') ?? 0)) {
