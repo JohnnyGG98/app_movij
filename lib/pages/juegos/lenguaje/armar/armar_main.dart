@@ -69,7 +69,7 @@ class _ArmarMainState extends State<ArmarMain> {
   }
 
   int getRandomGame() {
-    int mode = rand.nextInt(5);
+    int mode = rand.nextInt(4);
     mode = (mode > 1) ? mode : (mode + 1);
     return (mode == 1) ? mode + 1 : mode;
   }
