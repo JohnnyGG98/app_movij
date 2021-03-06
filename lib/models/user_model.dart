@@ -35,6 +35,7 @@ List<UserModel> defaultUsers = [
   UserModel(
     id: 1,
     username: 'Ahokin',
+    image: 'assets/app/ahokin.png',
   ),
   UserModel(
     id: 1,
